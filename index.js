@@ -7,6 +7,7 @@ import client from "./db/config.js";
 import loginRoute from "./Router/login.route.js";
 import productRoute from "./Router/products.route.js";
 import categoryRoute from "./Router/category.route.js";
+import userRoute from "./Router/user.route.js";
 
 const app = express();
 app.use(cors());
@@ -167,6 +168,7 @@ bot.on("message", async (msg) => {
 app.use(loginRoute);
 app.use(productRoute);
 app.use(categoryRoute);
+app.use(userRoute);
 
 app.listen(port, () => {
   console.log(port);
