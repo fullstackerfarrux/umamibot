@@ -1,7 +1,7 @@
 import client from "../db/config.js";
 
 export const getUser = async (req, res) => {
-  let { id } = req.body;
+  let { id } = req.params;
 
   const user = await client.query("select * from users where user_id = $1", [
     id,
