@@ -100,7 +100,6 @@ bot.on("message", async (msg) => {
         );
 
         console.log("user", user.rows);
-        let products = data.order_products.map((i) => JSON.parse(i));
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
         const token = process.env.TelegramApi;
@@ -109,15 +108,17 @@ bot.on("message", async (msg) => {
           getCount.rows[0].max
         } %0A
   <b>Имя клиента:</b> ${msg.from.first_name} %0A
-  <b>Номер:</b> ${number}| @${msg.from.username} %0A
+  <b>Номер:</b> ${user.rows[0].phone_number}| @${msg.from.username} %0A
   <b>Сумма заказа:</b> ${data.total} UZS %0A
-  <b>Адрес:</b> ${latitude}, ${longitude} (Локация после сообщения) %0A
+  <b>Адрес:</b> ${user.rows[0].user_location[0]}, ${
+          user.rows[0].user_location[1]
+        } (Локация после сообщения) %0A
           %0A
   <b>Оплате (${data.payment_type}) </b>%0A
   <b>Тип выдачи:</b> ${data.exportation} %0A
   <b>Комментарий: ${data.comment !== null ? `${data.comment}` : "Нет"}</b> %0A
   %0A
-  <b>Товары в корзине:</b> ${products.map((i, index) => {
+  <b>Товары в корзине:</b> ${data.order_products.map((i, index) => {
     let text = ` %0A ${index + 1}. ${i.product_name} (${
       i.product_price
     } UZS  x${i.count})`;
