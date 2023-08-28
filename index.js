@@ -101,11 +101,12 @@ bot.on("message", async (msg) => {
         );
 
         let create = await client.query(
-          "INSERT INTO orders(products, total, user_id, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6)",
+          "INSERT INTO orders(products, total, user_id, username, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7)",
           [
             data.order_products,
             `${data.total}`,
             msg.from.id,
+            msg.from.first_name,
             data.comment,
             data.payment,
             data.delivery,
