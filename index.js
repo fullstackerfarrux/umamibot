@@ -101,6 +101,7 @@ bot.on("message", async (msg) => {
 
         console.log("data", data);
         let getCount = await client.query("SELECT MAX(count) FROM orders");
+        console.log(getCount, "getcoiunt");
 
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
@@ -114,14 +115,14 @@ bot.on("message", async (msg) => {
           user.rows[0].user_location[1]
         } (Локация после сообщения) %0A
           %0A
-  <b>Оплате (${data.payment_type}) </b>%0A
-  <b>Тип выдачи:</b> ${data.exportation} %0A
-  <b>Комментарий: ${data.comment !== null ? `${data.comment}` : "Нет"}</b> %0A
+  <b>Оплате (${data.payment}) </b>%0A
+  <b>Тип выдачи:</b> ${data.delivery} %0A
+  <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
   %0A
   <b>Товары в корзине:</b> ${data.order_products.map((i, index) => {
-    let text = ` %0A ${index + 1}. ${i.product_name} (${
-      i.product_price
-    } UZS  x${i.count})`;
+    let text = ` %0A ${index + 1}. ${i.product_name} (${i.price} UZS  x${
+      i.count
+    })`;
     return text;
   })} %0A
         `;
