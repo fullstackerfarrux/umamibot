@@ -25,3 +25,11 @@ export const getCategories = async (req, res) => {
     categories: category.rows,
   });
 };
+
+export const getOrders = async (req, res) => {
+  const category = await client.query("select * from orders");
+
+  return res.status(200).json({
+    orders: category.rows,
+  });
+};
