@@ -147,19 +147,19 @@ bot.on("message", async (msg) => {
           `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
         );
 
-        // await bot.sendMessage(
-        //   msg.chat.id,
-        //   `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
-        //    Для нового заказа нажмите на кнопку "Отправить контакт"`,
-        //   {
-        //     reply_markup: JSON.stringify({
-        //       keyboard: [
-        //         [{ text: "Отправить контакт", request_contact: true }],
-        //       ],
-        //       resize_keyboard: true,
-        //     }),
-        //   }
-        // );
+        await bot.sendMessage(
+          msg.chat.id,
+          `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
+           Для нового заказа нажмите на кнопку "Отправить контакт"`,
+          {
+            reply_markup: JSON.stringify({
+              keyboard: [
+                [{ text: "Отправить контакт", request_contact: true }],
+              ],
+              resize_keyboard: true,
+            }),
+          }
+        );
       }
     } catch (error) {
       console.log("error ->", error);
