@@ -105,7 +105,7 @@ bot.on("message", async (msg) => {
             data.order_products,
             `${data.total}`,
             msg.from.id,
-            comment,
+            data.comment,
             data.payment,
             data.delivery,
           ]
