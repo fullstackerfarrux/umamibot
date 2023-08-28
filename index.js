@@ -99,10 +99,9 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        console.log("data", data);
-        // let products = data.products.map((i) => JSON.parse(i));
+        console.log("user", user.rows);
+        let products = data.order_products.map((i) => JSON.parse(i));
         let getCount = await client.query("SELECT MAX(count) FROM orders");
-        let number = `+${user.rows[0].phone_number}`;
 
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
