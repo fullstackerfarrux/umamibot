@@ -31,7 +31,8 @@ create table orders(
     products VARCHAR[] NOT NULL,
     comment VARCHAR,
     payment_type VARCHAR NOT NUll,
-    exportation VARCHAR NOT NULL
+    exportation VARCHAR NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 drop table if exists category;

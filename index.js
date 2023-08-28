@@ -112,7 +112,6 @@ bot.on("message", async (msg) => {
         );
 
         let getCount = await client.query("SELECT MAX(count) FROM orders");
-        console.log(getCount, "getcoiunt");
 
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
