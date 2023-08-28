@@ -28,6 +28,7 @@ create table orders(
     order_id VARCHAR DEFAULT gen_random_uuid(),
     user_id VARCHAR NOT NULL,
     username VARCHAR NOT NULL,
+    phone_number VARCHAR NOT NULL,
     total VARCHAR NOT NULL,
     products VARCHAR[] NOT NULL,
     comment VARCHAR,
