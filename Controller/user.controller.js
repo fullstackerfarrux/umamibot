@@ -8,6 +8,6 @@ export const getUser = async (req, res) => {
   ]);
 
   return res.status(200).json({
-    user: user.rows,
+    user: user.rows[0].firstname,
   });
 };
