@@ -50,11 +50,11 @@ export const getProduct = async (req, res) => {
 };
 
 export const editProduct = async (req, res) => {
-  let { id, title, description, price, images } = req.body;
+  let { id, title, description, price, images, category_name } = req.body;
 
   await client.query(
-    "UPDATE product SET title = $1, description = $2, price = $3, images = $4 WHERE product_id = $5",
-    [title, description, +price, images, id]
+    "UPDATE product SET title = $1, description = $2, price = $3, images = $4, category_name = $5 WHERE product_id = $6",
+    [title, description, +price, images, category_name, id]
   );
 
   return res.status(200).json({
