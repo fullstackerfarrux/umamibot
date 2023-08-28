@@ -99,7 +99,18 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        console.log("data", data);
+        let create = await client.query(
+          "INSERT INTO orders(products, total, user_id, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6)",
+          [
+            data.order_products,
+            `${data.total}`,
+            msg.from.id,
+            comment,
+            data.payment,
+            data.delivery,
+          ]
+        );
+
         let getCount = await client.query("SELECT MAX(count) FROM orders");
         console.log(getCount, "getcoiunt");
 
