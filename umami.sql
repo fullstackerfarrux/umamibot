@@ -42,3 +42,9 @@ create table category(
     category_id VARCHAR DEFAULT gen_random_uuid(),
     category_name VARCHAR NOT NULL
 );
+
+drop table if exists banner;
+create table banner(
+    banner_id VARCHAR DEFAULT gen_random_uuid(),
+    banner_img VARCHAR NOT NULL
+);
