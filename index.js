@@ -158,7 +158,6 @@ bot.on("message", async (msg) => {
               parse_mode: "HTML",
               reply_markup: JSON.stringify({
                 keyboard: [[{ text: "Оплатить" }]],
-                callback_data: "Оплатить",
               }),
             }
           );
@@ -192,25 +191,25 @@ bot.on("message", async (msg) => {
   }
 });
 
-bot.on("callback_query", async (msg) => {
+bot.on("message", async (msg) => {
   console.log(msg.data);
-  if (msg.data == "Оплатить") {
-    bot.sendInvoice(
-      msg.chat.id,
-      "Подписка",
-      "Подписка для доступа",
-      "Payload",
-      "371317599:TEST:1693910757574",
-      "get_acces",
-      "UZS",
-      [
-        {
-          label: "Подписка",
-          amount: 20000,
-        },
-      ]
-    );
-  }
+  // if (msg.data == "Оплатить") {
+  //   bot.sendInvoice(
+  //     msg.chat.id,
+  //     "Подписка",
+  //     "Подписка для доступа",
+  //     "Payload",
+  //     "371317599:TEST:1693910757574",
+  //     "get_acces",
+  //     "UZS",
+  //     [
+  //       {
+  //         label: "Подписка",
+  //         amount: 20000,
+  //       },
+  //     ]
+  //   );
+  // }
 });
 
 app.use(loginRoute);
