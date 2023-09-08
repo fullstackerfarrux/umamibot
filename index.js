@@ -193,18 +193,18 @@ bot.on("message", async (msg) => {
 
 bot.on("message", async (msg) => {
   if (msg.text == "Оплатить") {
-    bot.sendInvoice({
-      chat_id: msg.chat.id,
-      title: "InvoiceTitle",
-      description: "InvoiceDescription",
-      provider_token: "371317599:TEST:1693910757574",
-      currency: "UZS",
-      prices: [{ label: "Invoice Title", amount: 10000 }],
-      payload: {
+    bot.sendInvoice(
+      msg.chat.id,
+      "InvoiceTitle",
+      "InvoiceDescription",
+      "371317599:TEST:1693910757574",
+      "UZS",
+      [{ label: "Invoice Title", amount: 10000 }],
+      {
         unique_id: `123`,
         provider_token: "371317599:TEST:1693910757574",
-      },
-    });
+      }
+    );
   }
 });
 
