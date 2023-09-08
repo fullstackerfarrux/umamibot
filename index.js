@@ -147,12 +147,13 @@ bot.on("message", async (msg) => {
           await bot.sendMessage(
             msg.chat.id,
             `<b>Оплате (${data.payment}) </b>
-    <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
-      let text = `\n ${index + 1}. ${i.product_name} (${i.price} UZS  x${
-        i.count
-      })`;
-      return text;
-    })}`,
+  <b>Сумма заказа:</b> ${data.total} UZS \n
+  <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
+    let text = `\n ${index + 1}. ${i.product_name} (${i.price} UZS  x${
+      i.count
+    })`;
+    return text;
+  })}`,
             {
               parse_mode: "HTML",
               reply_markup: JSON.stringify({
@@ -188,6 +189,26 @@ bot.on("message", async (msg) => {
     } catch (error) {
       console.log("error ->", error);
     }
+  }
+});
+
+bot.on("callback_query", async (msg) => {
+  if (msg.data == "Оплатить") {
+    bot.sendInvoice(
+      msg.chat.id,
+      "Подписка",
+      "Подписка для доступа",
+      "Payload",
+      "371317599:TEST:1693910757574",
+      "get_acces",
+      "UZS",
+      [
+        {
+          label: "Подписка",
+          amount: 20000,
+        },
+      ]
+    );
   }
 });
 
