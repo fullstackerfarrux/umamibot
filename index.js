@@ -146,13 +146,13 @@ bot.on("message", async (msg) => {
         if (data.payment == "РауМе") {
           await bot.sendMessage(
             msg.chat.id,
-            `<b>Оплате (${data.payment}) </b>%0A
-             <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
-               let text = ` %0A ${index + 1}. ${i.product_name} (${
-                 i.price
-               } UZS  x${i.count})`;
-               return text;
-             })}`,
+            `<b>Оплате (${data.payment}) </b>
+    <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
+      let text = `\n ${index + 1}. ${i.product_name} (${i.price} UZS  x${
+        i.count
+      })`;
+      return text;
+    })}`,
             {
               parse_mode: "HTML",
               reply_markup: JSON.stringify({
