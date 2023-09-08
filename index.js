@@ -200,7 +200,7 @@ bot.on("message", async (msg) => {
       title: "InvoiceTitle",
       description: "InvoiceDescription",
       currency: "UZS",
-      prices: [{ label: "Invoice Title", amount: 10000 }], // Price breakdown, serialized list of components in JSON format 100 kopecks * 100 = 100 rubles
+      prices: [{ label: "Invoice Title", amount: 10000 }],
       payload: {
         unique_id: `123`,
         provider_token: "371317599:TEST:1693910757574",
