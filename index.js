@@ -204,7 +204,7 @@ bot.on("pre_checkout_query", async (query) => {
   console.log(`[bot] pre checkout`);
   console.log(query);
   console.log(query.id);
-  let answerCheckout = await bot.answerPreCheckoutQuery(query.id, true);
+  let answerCheckout = await bot.answerPreCheckoutQuery(true);
   console.log("answer_precheckout_query", answerCheckout);
 });
 
