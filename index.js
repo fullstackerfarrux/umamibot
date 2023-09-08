@@ -192,25 +192,23 @@ bot.on("message", async (msg) => {
 });
 
 bot.on("message", async (msg) => {
-  console.log("msg", msg);
-  console.log(msg.text);
-  // if (msg.data == "Оплатить") {
-  //   bot.sendInvoice(
-  //     msg.chat.id,
-  //     "Подписка",
-  //     "Подписка для доступа",
-  //     "Payload",
-  //     "371317599:TEST:1693910757574",
-  //     "get_acces",
-  //     "UZS",
-  //     [
-  //       {
-  //         label: "Подписка",
-  //         amount: 20000,
-  //       },
-  //     ]
-  //   );
-  // }
+  if (msg.text == "Оплатить") {
+    bot.sendInvoice(
+      msg.chat.id,
+      "Подписка",
+      "Подписка для доступа",
+      "Payload",
+      "371317599:TEST:1693910757574",
+      "get_acces",
+      "UZS",
+      [
+        {
+          label: "Подписка",
+          amount: 20000,
+        },
+      ]
+    );
+  }
 });
 
 app.use(loginRoute);
