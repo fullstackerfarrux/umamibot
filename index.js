@@ -192,7 +192,8 @@ bot.on("message", async (msg) => {
 });
 
 bot.on("message", async (msg) => {
-  console.log(msg.data);
+  console.log("msg", msg);
+  console.log(msg.text);
   // if (msg.data == "Оплатить") {
   //   bot.sendInvoice(
   //     msg.chat.id,
