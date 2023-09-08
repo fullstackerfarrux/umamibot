@@ -197,13 +197,13 @@ bot.on("message", async (msg) => {
       msg.chat.id,
       "InvoiceTitle",
       "InvoiceDescription",
-      "371317599:TEST:1693910757574",
-      "UZS",
-      [{ label: "Invoice Title", amount: 10000 }],
       {
         unique_id: `123`,
         provider_token: "371317599:TEST:1693910757574",
-      }
+      },
+      "371317599:TEST:1693910757574",
+      "UZS",
+      [{ label: "Invoice Title", amount: 10000 }]
     );
   }
 });
