@@ -145,8 +145,8 @@ bot.on("message", async (msg) => {
           let price = [
             data.order_products.map((p, index) => {
               return {
-                label: `${i.product_name}`,
-                amount: `${i.price.toString().replaceAll(" ", "")}`,
+                label: `${p.product_name}`,
+                amount: `${p.price.toString().replaceAll(" ", "")}`,
               };
             }),
           ];
