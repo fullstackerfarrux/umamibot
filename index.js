@@ -194,7 +194,7 @@ bot.on("message", async (msg) => {
 bot.on("message", async (msg) => {
   if (msg.text == "Оплатить") {
     bot.sendInvoice(
-      chatId,
+      msg.chat.id,
       "Подписка",
       "Подписка для доступа",
       "Payload",
