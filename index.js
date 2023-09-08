@@ -155,10 +155,10 @@ bot.on("message", async (msg) => {
              })}`,
 
             {
-              reply_markup: JSON.stringify({
+              reply_markup: {
                 inline_keyboard: [[{ text: "Оплатить" }]],
-                resize_keyboard: true,
-              }),
+                callback_data: "Оплатить",
+              },
             }
           );
         } else {
