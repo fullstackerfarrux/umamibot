@@ -193,6 +193,7 @@ bot.on("message", async (msg) => {
 });
 
 bot.on("callback_query", async (msg) => {
+  console.log(msg.data);
   if (msg.data == "Оплатить") {
     bot.sendInvoice(
       msg.chat.id,
