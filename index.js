@@ -150,6 +150,8 @@ bot.on("message", async (msg) => {
               };
             }),
           ];
+
+          console.log(price);
           await bot.sendInvoice(
             msg.chat.id,
             `Оформления заказа `,
@@ -157,7 +159,12 @@ bot.on("message", async (msg) => {
             "Payload",
             "371317599:TEST:1693910757574",
             "UZS",
-            price
+            [
+              {
+                label: "Подписка",
+                amount: 11900000,
+              },
+            ]
           );
         } else {
           // await axios.post(
