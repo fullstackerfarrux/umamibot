@@ -163,11 +163,23 @@ bot.on("message", async (msg) => {
             "Payload",
             "371317599:TEST:1693910757574",
             "UZS",
-            price
+            [
+              {
+                label: "test",
+                amount: 1000,
+              },
+            ]
           );
-          console.log(send);
 
-          // await bot.PreCheckoutQuery(msg.chat.id);
+          let preCheckout = await bot.PreCheckoutQuery(
+            "umami",
+            msg.from.id,
+            "UZS",
+            send.invoice.total_amount,
+            send.invoice
+          );
+
+          console.log(preCheckout);
         } else {
           // await axios.post(
           //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
