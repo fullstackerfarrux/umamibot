@@ -144,8 +144,9 @@ bot.on("message", async (msg) => {
         if (data.payment == "РауМе") {
           let num = p.price.replace(/\D/g, "");
 
-          var price = parseInt(num);
-          console.log(price);
+          console.log(num);
+          // var price = parseInt(num);
+          // console.log(price);
 
           let price = [
             data.order_products.map((p, index) => {
