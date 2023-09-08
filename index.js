@@ -156,7 +156,7 @@ bot.on("message", async (msg) => {
             price.push({ label: "Доставка", amount: 19000 * 100 });
           }
 
-          await bot.sendInvoice(
+          let send = await bot.sendInvoice(
             msg.chat.id,
             `Оформления заказа `,
             `Descripotion`,
@@ -165,6 +165,9 @@ bot.on("message", async (msg) => {
             "UZS",
             price
           );
+          console.log(send);
+
+          // await bot.PreCheckoutQuery(msg.chat.id);
         } else {
           // await axios.post(
           //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
