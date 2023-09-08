@@ -166,7 +166,7 @@ bot.on("message", async (msg) => {
             [
               {
                 label: "test",
-                amount: 1000 * 100,
+                amount: 10000 * 100,
               },
             ]
           );
