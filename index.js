@@ -101,19 +101,19 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        let create = await client.query(
-          "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
-          [
-            data.order_products,
-            `${data.total}`,
-            msg.from.id,
-            msg.from.first_name,
-            user.rows[0].phone_number,
-            data.comment,
-            data.payment,
-            data.delivery,
-          ]
-        );
+        // let create = await client.query(
+        //   "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
+        //   [
+        //     data.order_products,
+        //     `${data.total}`,
+        //     msg.from.id,
+        //     msg.from.first_name,
+        //     user.rows[0].phone_number,
+        //     data.comment,
+        //     data.payment,
+        //     data.delivery,
+        //   ]
+        // );
 
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
