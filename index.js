@@ -142,23 +142,22 @@ bot.on("message", async (msg) => {
         `;
 
         if (data.payment == "РауМе") {
-          await bot.sendMessage(
+          let price = [
+            data.order_products.map((p, index) => {
+              return {
+                label: `${i.product_name}`,
+                amount: `${i.price.toString().replaceAll(" ", "")}`,
+              };
+            }),
+          ];
+          await bot.sendInvoice(
             msg.chat.id,
-            `<b>Оплате (${data.payment}) </b>
-  <b>Сумма заказа:</b> ${data.total} UZS \n
-  <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
-    let text = `\n ${index + 1}. ${i.product_name} (${i.price} UZS  x${
-      i.count
-    })`;
-    return text;
-  })}`,
-            {
-              parse_mode: "HTML",
-              reply_markup: JSON.stringify({
-                keyboard: [[{ text: "Оплатить" }]],
-                resize_keyboard: true,
-              }),
-            }
+            `Оформления заказа `,
+            `Сумма заказа: 119 000 UZS`,
+            "Payload",
+            "371317599:TEST:1693910757574",
+            "UZS",
+            price
           );
         } else {
           // await axios.post(
