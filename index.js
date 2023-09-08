@@ -142,20 +142,16 @@ bot.on("message", async (msg) => {
         `;
 
         if (data.payment == "РауМе") {
-          var number = 1000000;
-          console.log("numeric number", number);
+          let num = p.price.replace(/\D/g, "");
 
-          var str = number.toLocaleString();
-          console.log("with commas", str);
-
-          var num = str.replace(/\D/g, "").parseInt();
-          console.log("string without commas", num);
+          var price = parseInt(num);
+          console.log(price);
 
           let price = [
             data.order_products.map((p, index) => {
               return {
                 label: `${p.product_name}`,
-                amount: `${p.price.replace(/\D/g, "").parseInt()}`,
+                amount: `${price}`,
               };
             }),
           ];
