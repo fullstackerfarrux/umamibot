@@ -154,6 +154,7 @@ bot.on("message", async (msg) => {
                return text;
              })}`,
             {
+              parse_mode: "HTML",
               reply_markup: JSON.stringify({
                 keyboard: [[{ text: "Оплатить" }]],
                 callback_data: "Оплатить",
