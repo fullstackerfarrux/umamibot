@@ -156,20 +156,20 @@ bot.on("message", async (msg) => {
             price.push({ label: "Доставка", amount: 19000 * 100 });
           }
 
-          let send = await bot.sendInvoice({
-            chat_id: msg.chat.id,
-            title: `Оформления заказа `,
-            description: `Descripotion`,
-            payload: "Payload",
-            provider_token: "371317599:TEST:1693910757574",
-            currency: "UZS",
-            prices: [
+          let send = await bot.sendInvoice(
+            msg.chat.id,
+            `Оформления заказа `,
+            `Descripotion`,
+            "Payload",
+            "371317599:TEST:1693910757574",
+            "UZS",
+            [
               {
                 label: "test",
                 amount: 10000 * 100,
               },
-            ],
-          });
+            ]
+          );
         } else {
           // await axios.post(
           //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
