@@ -200,8 +200,11 @@ bot.on("message", async (msg) => {
   }
 });
 
-bot.on("precheckout_query", async (msg) => {
-  console.log(msg);
+app.on("pre_checkout_query", ({ answerPreCheckoutQuery }) =>
+  answerPreCheckoutQuery(true)
+);
+app.on("successful_payment", (msg) => {
+  console.log("pul tushdi bolakay");
 });
 
 app.use(loginRoute);
