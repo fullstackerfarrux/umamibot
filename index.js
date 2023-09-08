@@ -158,6 +158,7 @@ bot.on("message", async (msg) => {
               parse_mode: "HTML",
               reply_markup: JSON.stringify({
                 keyboard: [[{ text: "Оплатить" }]],
+                resize_keyboard: true,
               }),
             }
           );
@@ -195,10 +196,9 @@ bot.on("message", async (msg) => {
   if (msg.text == "Оплатить") {
     bot.sendInvoice(
       msg.chat.id,
+      `Оформления заказа\n`,
       `Оплате (РауМе) 
-      Сумма заказа: 119 000 UZS \n`,
-      ` Ваш заказ: \n
- 1. Ролл с с угрём и тигровый креветкой (8шт) (100 000 UZS  x1)`,
+      Сумма заказа: 119 000 UZS`,
       "Payload",
       "371317599:TEST:1693910757574",
       "UZS",
