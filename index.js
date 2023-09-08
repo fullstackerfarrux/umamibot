@@ -200,16 +200,17 @@ bot.on("message", async (msg) => {
   }
 });
 
-bot.on("pre_checkout_query", (query) => {
+bot.on("pre_checkout_query", async (query) => {
   console.log(`[bot] pre checkout`);
   console.log(query);
-  bot.answerPreCheckoutQuery(query.id, true);
+  await bot.answerPreCheckoutQuery(query.id, true);
+  console.log("ketti");
 });
 
-bot.on("successful_payment", (msg) => {
+bot.on("successful_payment", async (msg) => {
   console.log(`[bot] successful payment`);
   console.log("Successful Payment", msg);
-  bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
+  await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
 });
 
 app.use(loginRoute);
