@@ -159,12 +159,7 @@ bot.on("message", async (msg) => {
           await bot.sendInvoice(
             msg.chat.id,
             `Оформления заказа `,
-            `${data.order_products.map((i, index) => {
-              let text = `${index + 1}. ${i.product_name} (${i.price} UZS  x${
-                i.count
-              }) \n`;
-              return text;
-            })}`,
+            `Descripotion`,
             "Payload",
             "371317599:TEST:1693910757574",
             "UZS",
