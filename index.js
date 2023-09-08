@@ -203,8 +203,9 @@ bot.on("message", async (msg) => {
 bot.on("pre_checkout_query", async (query) => {
   console.log(`[bot] pre checkout`);
   console.log(query);
-  let test = await bot.answerPreCheckoutQuery(query.id, true);
-  console.log("ketti", test);
+  console.log(query.id);
+  let answerCheckout = await bot.answerPreCheckoutQuery(query.id, true);
+  console.log("answer_precheckout_query", answerCheckout);
 });
 
 bot.on("successful_payment", async (msg) => {
