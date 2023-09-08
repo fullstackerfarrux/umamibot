@@ -151,11 +151,12 @@ bot.on("message", async (msg) => {
               amount: `${price * 100}`,
             };
           });
-          console.log(price);
+
+          console.log(data);
           await bot.sendInvoice(
             msg.chat.id,
             `Оформления заказа `,
-            `Сумма заказа: 119 000 UZS`,
+            price,
             "Payload",
             "371317599:TEST:1693910757574",
             "UZS",
