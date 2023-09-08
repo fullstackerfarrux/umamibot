@@ -142,6 +142,18 @@ bot.on("message", async (msg) => {
         `;
 
         if (data.payment == "РауМе") {
+          var number = 1000000;
+          console.log("numeric number", number);
+
+          var str = number.toLocaleString();
+          console.log("with commas", str);
+
+          var num = str.replace(/\D/g, "");
+          console.log("string without commas", num);
+
+          var num2 = parseInt(num);
+          console.log("numeric", num2);
+
           let price = [
             data.order_products.map((p, index) => {
               return {
