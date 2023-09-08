@@ -141,26 +141,49 @@ bot.on("message", async (msg) => {
   })} %0A
         `;
 
-        await axios.post(
-          `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
-        );
-        await axios.post(
-          `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
-        );
+        console.log(data.payment);
 
-        await bot.sendMessage(
-          msg.chat.id,
-          `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
-  Для нового заказа нажмите на кнопку "Отправить контакт"`,
-          {
-            reply_markup: JSON.stringify({
-              keyboard: [
-                [{ text: "Отправить контакт", request_contact: true }],
-              ],
-              resize_keyboard: true,
-            }),
-          }
-        );
+        if (data.payment == "РауМе") {
+          await bot.sendMessage(
+            msg.chat.id,
+            `<b>Оплате (${data.payment}) </b>%0A
+             <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
+               let text = ` %0A ${index + 1}. ${i.product_name} (${
+                 i.price
+               } UZS  x${i.count})`;
+               return text;
+             })}`,
+
+            {
+              reply_markup: JSON.stringify({
+                inline_keyboard: [[{ text: "Оплатить" }]],
+                resize_keyboard: true,
+              }),
+            }
+          );
+        } else {
+          // await axios.post(
+          //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
+          // );
+
+          // await axios.post(
+          //   `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
+          // );
+
+          await bot.sendMessage(
+            msg.chat.id,
+            `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
+          Для нового заказа нажмите на кнопку "Отправить контакт"`,
+            {
+              reply_markup: JSON.stringify({
+                keyboard: [
+                  [{ text: "Отправить контакт", request_contact: true }],
+                ],
+                resize_keyboard: true,
+              }),
+            }
+          );
+        }
       }
     } catch (error) {
       console.log("error ->", error);
