@@ -145,9 +145,7 @@ bot.on("message", async (msg) => {
           let price = [
             data.order_products.map((p, index) => {
               let num = p.price.replace(/\D/g, "");
-              console.log(num);
               var price = parseInt(num);
-              console.log(price);
 
               return {
                 label: `${p.product_name}`,
@@ -164,12 +162,7 @@ bot.on("message", async (msg) => {
             "Payload",
             "371317599:TEST:1693910757574",
             "UZS",
-            [
-              {
-                label: "Подписка",
-                amount: 11900000,
-              },
-            ]
+            price
           );
         } else {
           // await axios.post(
