@@ -196,8 +196,10 @@ bot.on("message", async (msg) => {
   if (msg.text == "Оплатить") {
     bot.sendInvoice(
       msg.chat.id,
-      `Оформления заказа\n`,
+      `Оформления заказа 
+      \n`,
       `Оплате (РауМе) 
+      \n
       Сумма заказа: 119 000 UZS`,
       "Payload",
       "371317599:TEST:1693910757574",
