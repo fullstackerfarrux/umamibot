@@ -142,14 +142,13 @@ bot.on("message", async (msg) => {
         `;
 
         if (data.payment == "РауМе") {
-          let num = p.price.replace(/\D/g, "");
-
-          console.log(num);
-          // var price = parseInt(num);
-          // console.log(price);
-
           let price = [
             data.order_products.map((p, index) => {
+              let num = p.price.replace(/\D/g, "");
+              console.log(num);
+              var price = parseInt(num);
+              console.log(price);
+
               return {
                 label: `${p.product_name}`,
                 amount: `${price}`,
