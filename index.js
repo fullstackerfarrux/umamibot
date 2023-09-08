@@ -196,8 +196,8 @@ bot.on("message", async (msg) => {
     bot.sendInvoice(
       msg.chat.id,
       `Оформления заказа \n`,
-      `<b>Оплате (${data.payment}) </b>
-  <b>Сумма заказа:</b> ${data.total} UZS \n
+      `<b>Оплате (PayMe) </b>
+  <b>Сумма заказа:</b>190 000 UZS \n
   Ваш заказ: \n
  1. Ролл с с угрём и тигровый креветкой (8шт) (100 000 UZS  x1) \n`,
       "Payload",
