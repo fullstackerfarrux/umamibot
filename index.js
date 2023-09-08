@@ -146,6 +146,7 @@ bot.on("message", async (msg) => {
         if (data.payment == "РауМе") {
           const adv_help = {
             reply_markup: {
+              remove_keyboard: true,
               inline_keyboard: [
                 [
                   {
