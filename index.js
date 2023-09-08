@@ -193,21 +193,19 @@ bot.on("message", async (msg) => {
 
 bot.on("message", async (msg) => {
   if (msg.text == "Оплатить") {
-    bot.sendInvoice(
-      msg.chat.id,
-      "Подписка",
-      "Подписка для доступа",
-      "Payload",
-      "371317599:TEST:1693910757574",
-      "get_acces",
-      "UZS",
-      [
-        {
-          label: "Подписка",
-          amount: 20000,
-        },
-      ]
-    );
+    bot.sendInvoice({
+      chat_id: msg.chat.id,
+      provider_token: "371317599:TEST:1693910757574",
+      start_parameter: "get_access",
+      title: "InvoiceTitle",
+      description: "InvoiceDescription",
+      currency: "UZS",
+      prices: [{ label: "Invoice Title", amount: 10000 }], // Price breakdown, serialized list of components in JSON format 100 kopecks * 100 = 100 rubles
+      payload: {
+        unique_id: `123`,
+        provider_token: "371317599:TEST:1693910757574",
+      },
+    });
   }
 });
 
