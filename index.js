@@ -170,16 +170,6 @@ bot.on("message", async (msg) => {
               },
             ]
           );
-
-          let preCheckout = await bot.PreCheckoutQuery(
-            "umami",
-            msg.from.id,
-            "UZS",
-            send.invoice.total_amount,
-            send.invoice
-          );
-
-          console.log(preCheckout);
         } else {
           // await axios.post(
           //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
@@ -210,23 +200,8 @@ bot.on("message", async (msg) => {
   }
 });
 
-bot.on("message", async (msg) => {
-  if (msg.text == "Оплатить") {
-    bot.sendInvoice(
-      msg.chat.id,
-      `Оформления заказа `,
-      `Сумма заказа: 119 000 UZS`,
-      "Payload",
-      "371317599:TEST:1693910757574",
-      "UZS",
-      [
-        {
-          label: "Подписка",
-          amount: 11900000,
-        },
-      ]
-    );
-  }
+bot.on("precheckout_query", async (msg) => {
+  console.log(msg);
 });
 
 app.use(loginRoute);
