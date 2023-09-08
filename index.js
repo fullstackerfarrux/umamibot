@@ -168,7 +168,8 @@ bot.on("message", async (msg) => {
                 label: "test",
                 amount: 10000 * 100,
               },
-            ]
+            ],
+            "unique"
           );
         } else {
           // await axios.post(
