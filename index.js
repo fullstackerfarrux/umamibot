@@ -148,17 +148,14 @@ bot.on("message", async (msg) => {
           var str = number.toLocaleString();
           console.log("with commas", str);
 
-          var num = str.replace(/\D/g, "");
+          var num = str.replace(/\D/g, "").parseInt();
           console.log("string without commas", num);
-
-          var num2 = parseInt(num);
-          console.log("numeric", num2);
 
           let price = [
             data.order_products.map((p, index) => {
               return {
                 label: `${p.product_name}`,
-                amount: `${p.price.toString().replaceAll(" ", "")}`,
+                amount: `${p.price.replace(/\D/g, "").parseInt()}`,
               };
             }),
           ];
