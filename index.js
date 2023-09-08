@@ -196,7 +196,6 @@ bot.on("message", async (msg) => {
     bot.sendInvoice({
       chat_id: msg.chat.id,
       provider_token: "371317599:TEST:1693910757574",
-      start_parameter: "get_access",
       title: "InvoiceTitle",
       description: "InvoiceDescription",
       currency: "UZS",
