@@ -156,7 +156,7 @@ bot.on("message", async (msg) => {
 
             {
               reply_markup: {
-                inline_keyboard: [[{ text: "Оплатить" }]],
+                inline_keyboard: [{ text: "Оплатить" }],
                 callback_data: "Оплатить",
               },
             }
