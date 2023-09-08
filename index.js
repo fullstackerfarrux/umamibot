@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import TelegramBot from "node-telegram-bot-api";
-import Telegraf from "telegraf";
 import axios from "axios";
 import client from "./db/config.js";
 import loginRoute from "./Router/login.route.js";
@@ -17,7 +16,7 @@ app.use(express.json());
 dotenv.config();
 
 let port = process.env.PORT || 4001;
-const bot = new Telegraf(process.env.TelegramApi, { polling: true });
+const bot = new TelegramBot(process.env.TelegramApi, { polling: true });
 
 bot.onText(/start/, async (msg) => {
   bot.sendMessage(
@@ -201,12 +200,16 @@ bot.on("message", async (msg) => {
   }
 });
 
-bot.on("pre_checkout_query", ({ answerPreCheckoutQuery }) =>
-  answerPreCheckoutQuery(true)
-);
+bot.on("pre_checkout_query", (query) => {
+  console.log(`[bot] pre checkout`);
+  console.log(query);
+  bot.answerPreCheckoutQuery(query.id, true);
+});
 
 bot.on("successful_payment", (msg) => {
-  console.log("pul tushdi bolakay");
+  console.log(`[bot] successful payment`);
+  console.log("Successful Payment", msg);
+  bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
 });
 
 app.use(loginRoute);
