@@ -171,15 +171,15 @@ bot.on("message", async (msg) => {
             ]
           );
 
-          let preCheckout = await bot.PreCheckoutQuery(
-            "umami",
-            msg.from.id,
-            "UZS",
-            send.invoice.total_amount,
-            send.invoice
-          );
+          // let preCheckout = await bot.PreCheckoutQuery(
+          //   "umami",
+          //   msg.from.id,
+          //   "UZS",
+          //   send.invoice.total_amount,
+          //   send.invoice
+          // );
 
-          console.log(preCheckout);
+          // console.log(preCheckout);
         } else {
           // await axios.post(
           //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
