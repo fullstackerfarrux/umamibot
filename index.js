@@ -148,15 +148,23 @@ bot.on("message", async (msg) => {
 
             return {
               label: `${p.product_name}`,
-              amount: `${price * 100}`,
+              amount: `${price * p.count * 100}`,
             };
           });
 
-          console.log(data);
+          if (data.delivery) {
+            price.push({ label: "Доставка", amount: 19000 * 100 });
+          }
+
           await bot.sendInvoice(
             msg.chat.id,
             `Оформления заказа `,
-            price,
+            `${data.order_products.map((i, index) => {
+              let text = `${index + 1}. ${i.product_name} (${i.price} UZS  x${
+                i.count
+              }) \n`;
+              return text;
+            })}`,
             "Payload",
             "371317599:TEST:1693910757574",
             "UZS",
