@@ -142,18 +142,15 @@ bot.on("message", async (msg) => {
         `;
 
         if (data.payment == "РауМе") {
-          let price = [
-            data.order_products.map((p, index) => {
-              let num = p.price.replace(/\D/g, "");
-              var price = parseInt(num);
+          let price = data.order_products.map((p, index) => {
+            let num = p.price.replace(/\D/g, "");
+            var price = parseInt(num);
 
-              return {
-                label: `${p.product_name}`,
-                amount: `${price}`,
-              };
-            }),
-          ];
-
+            return {
+              label: `${p.product_name}`,
+              amount: `${price}`,
+            };
+          });
           console.log(price);
           await bot.sendInvoice(
             msg.chat.id,
