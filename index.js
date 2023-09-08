@@ -144,23 +144,42 @@ bot.on("message", async (msg) => {
         console.log(data.payment);
 
         if (data.payment == "РауМе") {
-          await bot.sendMessage(
-            msg.chat.id,
-            `<b>Оплате (${data.payment}) </b>%0A
-             <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
-               let text = ` %0A ${index + 1}. ${i.product_name} (${
-                 i.price
-               } UZS  x${i.count})`;
-               return text;
-             })}`,
+          const adv_help = {
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  {
+                    text: "Advanced Help",
+                    url: "https://telegra.ph/Advanced-Help-for-Cloud-Torrenter-07-31",
+                  },
+                ],
+              ],
+            },
+            parse_mode: "HTML",
+          };
 
-            {
-              reply_markup: {
-                inline_keyboard: [{ text: "Оплатить" }],
-                callback_data: "Оплатить",
-              },
-            }
+          bot.sendMessage(
+            msg.chat.id,
+            `<b>This is the link for the advanced help</b>`,
+            adv_help
           );
+          // await bot.sendMessage(
+          //   msg.chat.id,
+          //   `<b>Оплате (${data.payment}) </b>%0A
+          //    <b>Ваш заказ:</b> ${data.order_products.map((i, index) => {
+          //      let text = ` %0A ${index + 1}. ${i.product_name} (${
+          //        i.price
+          //      } UZS  x${i.count})`;
+          //      return text;
+          //    })}`,
+
+          //   {
+          //     reply_markup: {
+          //       inline_keyboard: [{ text: "Оплатить" }],
+          //       callback_data: "Оплатить",
+          //     },
+          //   }
+          // );
         } else {
           // await axios.post(
           //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
