@@ -152,7 +152,7 @@ bot.on("message", async (msg) => {
             };
           });
 
-          if (data.delivery) {
+          if (data.delivery == "Доставка") {
             price.push({ label: "Доставка", amount: 19000 * 100 });
           }
 
