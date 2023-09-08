@@ -141,8 +141,6 @@ bot.on("message", async (msg) => {
   })} %0A
         `;
 
-        console.log(data.payment);
-
         if (data.payment == "РауМе") {
           await bot.sendMessage(
             msg.chat.id,
@@ -197,9 +195,7 @@ bot.on("message", async (msg) => {
     bot.sendInvoice(
       msg.chat.id,
       `Оформления заказа `,
-      `Оплате (РауМе) 
-      
-      Сумма заказа: 119 000 UZS`,
+      `Сумма заказа: 119 000 UZS`,
       "Payload",
       "371317599:TEST:1693910757574",
       "UZS",
