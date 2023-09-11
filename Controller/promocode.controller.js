@@ -31,3 +31,16 @@ export const getPromo = async (req, res) => {
     data: getAll.rows,
   });
 };
+
+export const deletePromo = async (req, res) => {
+  let { id } = req.body;
+
+  const deletePromo = await client.query(
+    "DELETE FROM promocode WHERE id = $1",
+    [id]
+  );
+
+  return res.status(200).json({
+    data: "Deleted!",
+  });
+};
