@@ -48,3 +48,14 @@ create table banner(
     banner_id VARCHAR DEFAULT gen_random_uuid(),
     banner_img VARCHAR NOT NULL
 );
+
+drop table if exists promocode;
+create table promocode(
+    id VARCHAR DEFAULT gen_random_uuid(),
+    title VARCHAR NOT NULL,
+    sale INT NOT NULL,
+    initial_amount INT NOT NULL,
+    isActive BOOLEAN,
+    usedCount INT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

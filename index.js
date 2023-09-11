@@ -9,6 +9,7 @@ import productRoute from "./Router/products.route.js";
 import categoryRoute from "./Router/category.route.js";
 import userRoute from "./Router/user.route.js";
 import bannerRoute from "./Router/banner.route.js";
+import promoRoute from "./Router/promocode.route.js";
 
 const app = express();
 app.use(cors());
@@ -219,6 +220,7 @@ app.use(productRoute);
 app.use(categoryRoute);
 app.use(userRoute);
 app.use(bannerRoute);
+app.use(promoRoute);
 
 app.listen(port, () => {
   console.log(port);
