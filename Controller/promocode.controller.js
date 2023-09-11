@@ -9,9 +9,14 @@ export const createPromo = async (req, res) => {
     });
   }
 
+  let date = new Date();
+  let now = `${date.getDate()}.${
+    date.getMonth() > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`
+  }.${date.getFullYear()}`;
+
   let create = await client.query(
-    "INSERT INTO promocode(title, sale, initial_amount) values($1, $2, $3)",
-    [promo_name, percent, initial_amount]
+    "INSERT INTO promocode(title, sale, initial_amount, created_at) values($1, $2, $3, $4)",
+    [promo_name, percent, initial_amount, now]
   );
 
   return res.status(200).json({
