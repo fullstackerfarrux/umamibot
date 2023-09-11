@@ -18,3 +18,11 @@ export const createPromo = async (req, res) => {
     msg: "Created!",
   });
 };
+
+export const getPromo = async (req, res) => {
+  let getAll = await client.query("SELECT * FROM promocode");
+
+  return res.status(200).json({
+    data: getAll,
+  });
+};
