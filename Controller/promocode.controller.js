@@ -15,8 +15,8 @@ export const createPromo = async (req, res) => {
   }.${date.getFullYear()}`;
 
   let create = await client.query(
-    "INSERT INTO promocode(title, sale, initial_amount, created_at) values($1, $2, $3, $4)",
-    [promo_name, percent, initial_amount, now]
+    "INSERT INTO promocode(title, sale, initial_amount, isActive, created_at) values($1, $2, $3, $4, $5)",
+    [promo_name, percent, initial_amount, true, now]
   );
 
   return res.status(200).json({
