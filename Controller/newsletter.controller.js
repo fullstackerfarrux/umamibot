@@ -13,6 +13,7 @@ export const newsletter = async (req, res) => {
 
   const getUser = await client.query("SELECT chat_id FROM users");
   console.log(images);
+  console.log(images[0]);
 
   //   for (let i = 0; i < getUser.rows.length; i++) {
   // axios.post(
