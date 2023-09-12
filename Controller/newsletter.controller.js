@@ -1,5 +1,6 @@
 import axios from "axios";
 import client from "../db/config.js";
+import TelegramBot from "node-telegram-bot-api";
 
 export const newsletter = async (req, res) => {
   let { images, text } = req.body;
