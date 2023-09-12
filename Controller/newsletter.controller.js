@@ -3,6 +3,7 @@ import client from "../db/config.js";
 
 export const newsletter = async (req, res) => {
   let { images, text } = req.body;
+  const bot = new TelegramBot(process.env.TelegramApi, { polling: true });
   let token = process.env.TelegramApi;
 
   if (text == "" || text == undefined) {
@@ -17,6 +18,7 @@ export const newsletter = async (req, res) => {
   // axios.post(
   //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${getUser.rows[i].chat_id}&parse_mode=html&text=${text}`
   // );
+  await bot.sendMessage(609736291, "hello");
   axios.post(
     `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${609736291}&photo=${
       images[0]
