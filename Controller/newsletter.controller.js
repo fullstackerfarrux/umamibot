@@ -19,12 +19,19 @@ export const newsletter = async (req, res) => {
   // axios.post(
   //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${getUser.rows[i].chat_id}&parse_mode=html&text=${text}`
   // );
-  await bot.sendMessage(609736291, "hello");
-  axios.post(
-    `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${609736291}&photo=${
-      images[0]
-    }html&text=${text}`
+  await bot.sendPhoto(
+    609736291,
+    "https://res.cloudinary.com/drvbomwhl/image/upload/v1694514442/umami/wsiwftngt8adzkryqrai.png",
+    {
+      caption: `test`,
+      parse_mode: "HTML",
+    }
   );
+  //   axios.post(
+  //     `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${609736291}&photo=${
+  //       images[0]
+  //     }html&text=${text}`
+  //   );
   //   }
 
   return res.status(200).json({
