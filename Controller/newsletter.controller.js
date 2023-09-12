@@ -17,7 +17,7 @@ export const newsletter = async (req, res) => {
 
   for (let i = 0; i < getUser.rows.length; i++) {
     console.log(getUser.rows[i].chat_id);
-    await bot.sendPhoto(getUser.rows[i].chat_id, `${images[0]}`, {
+    await bot.sendPhoto(609736291, `${images[0]}`, {
       caption: `${text}`,
       parse_mode: "HTML",
     });
