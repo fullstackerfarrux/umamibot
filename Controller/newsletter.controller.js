@@ -4,7 +4,7 @@ import TelegramBot from "node-telegram-bot-api";
 
 export const newsletter = async (req, res) => {
   let { images, text } = req.body;
-  const bot = new TelegramBot(process.env.TelegramApi, { polling: true });
+  const bot = new TelegramBot(process.env.TelegramApi);
   let token = process.env.TelegramApi;
 
   if (text == "" || text == undefined) {
@@ -19,14 +19,10 @@ export const newsletter = async (req, res) => {
   // axios.post(
   //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${getUser.rows[i].chat_id}&parse_mode=html&text=${text}`
   // );
-  await bot.sendPhoto(
-    609736291,
-    "https://res.cloudinary.com/drvbomwhl/image/upload/v1694514442/umami/wsiwftngt8adzkryqrai.png",
-    {
-      caption: `test`,
-      parse_mode: "HTML",
-    }
-  );
+  await bot.sendPhoto(609736291, `${images[0]}`, {
+    caption: `${text}`,
+    parse_mode: "HTML",
+  });
   //   axios.post(
   //     `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${609736291}&photo=${
   //       images[0]
