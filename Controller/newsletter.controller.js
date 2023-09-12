@@ -12,7 +12,6 @@ export const newsletter = async (req, res) => {
   }
 
   const getUser = await client.query("SELECT chat_id FROM users");
-  console.log(images[0]);
   console.log(images);
 
   //   for (let i = 0; i < getUser.rows.length; i++) {
