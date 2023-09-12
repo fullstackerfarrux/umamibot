@@ -10,6 +10,7 @@ import categoryRoute from "./Router/category.route.js";
 import userRoute from "./Router/user.route.js";
 import bannerRoute from "./Router/banner.route.js";
 import promoRoute from "./Router/promocode.route.js";
+import newsletterRoute from "./Router/newsletter.route.js";
 
 const app = express();
 app.use(cors());
@@ -102,19 +103,19 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        // let create = await client.query(
-        //   "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
-        //   [
-        //     data.order_products,
-        //     `${data.total}`,
-        //     msg.from.id,
-        //     msg.from.first_name,
-        //     user.rows[0].phone_number,
-        //     data.comment,
-        //     data.payment,
-        //     data.delivery,
-        //   ]
-        // );
+        let create = await client.query(
+          "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
+          [
+            data.order_products,
+            `${data.total}`,
+            msg.from.id,
+            msg.from.first_name,
+            user.rows[0].phone_number,
+            data.comment,
+            data.payment,
+            data.delivery,
+          ]
+        );
 
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
@@ -172,13 +173,13 @@ bot.on("message", async (msg) => {
             ]
           );
         } else {
-          // await axios.post(
-          //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
-          // );
+          await axios.post(
+            `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
+          );
 
-          // await axios.post(
-          //   `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
-          // );
+          await axios.post(
+            `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
+          );
 
           await bot.sendMessage(
             msg.chat.id,
@@ -221,6 +222,7 @@ app.use(categoryRoute);
 app.use(userRoute);
 app.use(bannerRoute);
 app.use(promoRoute);
+app.use(newsletterRoute);
 
 app.listen(port, () => {
   console.log(port);
