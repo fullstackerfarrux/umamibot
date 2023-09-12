@@ -15,20 +15,12 @@ export const newsletter = async (req, res) => {
 
   const getUser = await client.query("SELECT chat_id FROM users");
 
-  //   for (let i = 0; i < getUser.rows.length; i++) {
-  // axios.post(
-  //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${getUser.rows[i].chat_id}&parse_mode=html&text=${text}`
-  // );
-  await bot.sendPhoto(609736291, `${images[0]}`, {
-    caption: `${text}`,
-    parse_mode: "HTML",
-  });
-  //   axios.post(
-  //     `https://api.telegram.org/bot${token}/sendPhoto?chat_id=${609736291}&photo=${
-  //       images[0]
-  //     }html&text=${text}`
-  //   );
-  //   }
+  for (let i = 0; i < getUser.rows.length; i++) {
+    await bot.sendPhoto(getUser.rows[i].chat_id, `${images[0]}`, {
+      caption: `${text}`,
+      parse_mode: "HTML",
+    });
+  }
 
   return res.status(200).json({
     msg: "Created!",
