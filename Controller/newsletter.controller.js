@@ -13,11 +13,9 @@ export const newsletter = async (req, res) => {
 
   const getUser = await client.query("SELECT chat_id FROM users");
 
-  console.log(getUser.rows);
-
   for (let i = 0; i < getUser.rows.length; i++) {
     axios.post(
-      `https://api.telegram.org/bot${token}/sendMessage?chat_id=${getUser.rows[i]}&parse_mode=html&text=${message}`
+      `https://api.telegram.org/bot${token}/sendMessage?chat_id=${getUser.rows[i].chat_id}&parse_mode=html&text=${text}`
     );
   }
 
