@@ -84,8 +84,6 @@ bot.on("location", async (msg) => {
         (locationString = `${data.address?.country}, ${data.address?.city}, ${data.address?.county}, ${data.address?.road}, ${data.address?.neighbourhood}`)
     );
 
-  console.log(locationString);
-
   const update = await client.query(
     "UPDATE users SET user_location = $1, reverse_location = $2 WHERE user_id = $3",
     [location, locationString, msg.from.id]
