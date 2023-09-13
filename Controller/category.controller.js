@@ -71,6 +71,7 @@ export const getOrders = async (req, res) => {
       lon: getUser.rows[0].user_location[1],
     })
     .then((res) => {
+      console.log(res);
       let find = res[0].formattedAddress
         .split(",")
         .filter((p, index) => p.includes("Tumani") == true);
