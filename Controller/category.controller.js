@@ -1,4 +1,5 @@
 import client from "../db/config.js";
+import nodeGeocoder from "node-geocoder";
 
 export const createCategory = async (req, res) => {
   let { category_name } = req.body;
@@ -50,7 +51,18 @@ export const getCategories = async (req, res) => {
 };
 
 export const getOrders = async (req, res) => {
+  const location = [];
+
+  let options = {
+    provider: "openstreetmap",
+  };
+
+  const allOrders = [];
   const category = await client.query("select * from orders");
+  console.log(category.rows[0]);
+  for (let i = 0; i < category.rows.length; i++) {
+    let res = {};
+  }
 
   return res.status(200).json({
     orders: category.rows,
