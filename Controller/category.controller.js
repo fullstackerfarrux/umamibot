@@ -1,5 +1,4 @@
 import client from "../db/config.js";
-import nodeGeocoder from "node-geocoder";
 
 export const createCategory = async (req, res) => {
   let { category_name } = req.body;
@@ -59,29 +58,6 @@ export const getOrders = async (req, res) => {
       category.rows[i].user_id,
     ]);
 
-    // let location = "";
-    // let options = {
-    //   provider: "openstreetmap",
-    // };
-
-    // let geoCoder = nodeGeocoder(options);
-    // await geoCoder
-    //   .reverse({
-    //     lat: getUser.rows[0].user_location[0],
-    //     lon: getUser.rows[0].user_location[1],
-    //   })
-    //   .then((res) => {
-    //     let find = res[0].formattedAddress
-    //       .split(",")
-    //       .filter((p, index) => p.includes("Tumani") == true);
-    //     location = `${res[0].country}, ${res[0].city}, ${find[0]}, ${res[0].streetName}, ${res[0].neighbourhood}`;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // console.log(location);
-
     let res = {
       count: category.rows[i].count,
       order_id: category.rows[i].order_id,
@@ -94,10 +70,10 @@ export const getOrders = async (req, res) => {
       payment_type: category.rows[i].payment_type,
       exportation: category.rows[i].exportation,
       created_at: category.rows[i].created_at,
-      location: [
-        getUser.rows[0].user_location[0],
-        getUser.rows[0].user_location[1],
-      ],
+      location:
+        getUser.rows[0]?.reverse_location !== undefined
+          ? getUser.rows[0]?.reverse_location
+          : "",
     };
 
     allOrders.push(res);

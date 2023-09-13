@@ -11,6 +11,7 @@ import userRoute from "./Router/user.route.js";
 import bannerRoute from "./Router/banner.route.js";
 import promoRoute from "./Router/promocode.route.js";
 import newsletterRoute from "./Router/newsletter.route.js";
+import nodeGeocoder from "node-geocoder";
 
 const app = express();
 app.use(cors());
@@ -70,28 +71,48 @@ bot.on("contact", async (msg) => {
 });
 
 bot.on("location", async (msg) => {
-  console.log(msg);
   let { latitude, longitude } = msg.location;
   const location = [latitude, longitude];
 
+  let locationString = "";
+  let options = {
+    provider: "openstreetmap",
+  };
+
+  let geoCoder = nodeGeocoder(options);
+  await geoCoder
+    .reverse({
+      lat: latitude,
+      lon: longitude,
+    })
+    .then((res) => {
+      let find = res[0].formattedAddress
+        .split(",")
+        .filter((p, index) => p.includes("Tumani") == true);
+      locationString = `${res[0].country}, ${res[0].city}, ${find[0]}, ${res[0].streetName}, ${res[0].neighbourhood}`;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
   const update = await client.query(
-    "UPDATE users SET user_location = $1 WHERE user_id = $2",
-    [location, msg.from.id]
+    "UPDATE users SET user_location = $1, reverse_location = $2 WHERE user_id = $3",
+    [location, locationString, msg.from.id]
   );
 
-  // bot.sendMessage(msg.chat.id, ` Для выбора товара нажмите на кнопку "Меню"`, {
-  //   reply_markup: JSON.stringify({
-  //     keyboard: [
-  //       [
-  //         {
-  //           text: `Меню`,
-  //           web_app: { url: "https://umamisushi.vercel.app/" },
-  //         },
-  //       ],
-  //     ],
-  //     resize_keyboard: true,
-  //   }),
-  // });
+  bot.sendMessage(msg.chat.id, ` Для выбора товара нажмите на кнопку "Меню"`, {
+    reply_markup: JSON.stringify({
+      keyboard: [
+        [
+          {
+            text: `Меню`,
+            web_app: { url: "https://umamisushi.vercel.app/" },
+          },
+        ],
+      ],
+      resize_keyboard: true,
+    }),
+  });
 });
 
 bot.on("message", async (msg) => {

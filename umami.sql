@@ -9,7 +9,8 @@ create table users(
     username VARCHAR NOT NULL,
     firstname VARCHAR NOT NULL,
     phone_number VARCHAR NOT NULL,
-    user_location VARCHAR[]
+    user_location VARCHAR[],
+    reverse_location VARCHAR
 );
 
 drop table if exists product;
