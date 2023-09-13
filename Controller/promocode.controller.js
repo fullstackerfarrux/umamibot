@@ -1,7 +1,7 @@
 import client from "../db/config.js";
 
 export const createPromo = async (req, res) => {
-  let { promo_name, percent, initial_amount } = req.body;
+  let { promo_name, percent, initial_amount, limit } = req.body;
 
   if (promo_name == "" || promo_name == undefined) {
     return res.status(400).json({
@@ -15,8 +15,8 @@ export const createPromo = async (req, res) => {
   }.${date.getFullYear()}`;
 
   let create = await client.query(
-    "INSERT INTO promocode(title, sale, initial_amount, isActive, created_at) values($1, $2, $3, $4, $5)",
-    [promo_name, percent, initial_amount, true, now]
+    "INSERT INTO promocode(title, sale, initial_amount, usage_limit, isActive, created_at) values($1, $2, $3, $4, $5, $6)",
+    [promo_name, percent, initial_amount, limit, true, now]
   );
 
   return res.status(200).json({
@@ -36,11 +36,11 @@ export const deletePromo = async (req, res) => {
   let { id } = req.body;
 
   const deletePromo = await client.query(
-    "DELETE FROM promocode WHERE id = $1",
+    "UPDATE promocode SET isActive = false WHERE id = $1",
     [id]
   );
 
   return res.status(200).json({
-    msg: "Deleted!",
+    msg: "Updated!",
   });
 };
