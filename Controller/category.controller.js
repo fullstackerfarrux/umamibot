@@ -56,7 +56,7 @@ export const getOrders = async (req, res) => {
 
   for (let i = 0; i < category.rows.length; i++) {
     let getUser = await client.query("SELECT * from users WHERE user_id = $1", [
-      res.user_id,
+      category.rows[i].user_id,
     ]);
 
     const location = "";
