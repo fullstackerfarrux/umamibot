@@ -75,6 +75,12 @@ bot.on("location", async (msg) => {
   const location = [latitude, longitude];
 
   let locationString = "";
+  let data = await fetch(
+    `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`
+  )
+    .then((res) => res.json())
+    .then((data) => console.log(data));
+
   let options = {
     provider: "openstreetmap",
   };
