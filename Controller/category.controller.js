@@ -81,6 +81,8 @@ export const getOrders = async (req, res) => {
       console.log(err);
     });
 
+  console.log(location);
+
   //   let res = {
   //     count: category.rows[i].count,
   //     order_id: category.rows[i].order_id,
