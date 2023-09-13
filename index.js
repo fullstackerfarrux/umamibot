@@ -81,7 +81,7 @@ bot.on("location", async (msg) => {
     .then((res) => res.json())
     .then(
       (data) =>
-        (locationString = `${data.address?.country}, ${data.address?.city}, ${data.address?.county}, ${data.address?.road}, ${data.address?.neighbourhood}`)
+        (locationString = `${data.address?.city}, ${data.address?.county}, ${data.address?.road}`)
     );
 
   const update = await client.query(
