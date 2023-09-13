@@ -54,52 +54,51 @@ export const getOrders = async (req, res) => {
   const allOrders = [];
   const category = await client.query("select * from orders");
 
-  // for (let i = 0; i < category.rows.length; i++) {
-  let getUser = await client.query("SELECT * from users WHERE user_id = $1", [
-    category.rows[0].user_id,
-  ]);
+  for (let i = 0; i < category.rows.length; i++) {
+    let getUser = await client.query("SELECT * from users WHERE user_id = $1", [
+      category.rows[i].user_id,
+    ]);
 
-  let location = "";
-  let options = {
-    provider: "openstreetmap",
-  };
+    let location = "";
+    let options = {
+      provider: "openstreetmap",
+    };
 
-  let geoCoder = nodeGeocoder(options);
-  await geoCoder
-    .reverse({
-      lat: getUser.rows[0].user_location[0],
-      lon: getUser.rows[0].user_location[1],
-    })
-    .then((res) => {
-      console.log(res);
-      let find = res[0].formattedAddress
-        .split(",")
-        .filter((p, index) => p.includes("Tumani") == true);
-      location = `${res[0].country}, ${res[0].city}, ${find[0]}, ${res[0].streetName}, ${res[0].neighbourhood}`;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    let geoCoder = nodeGeocoder(options);
+    await geoCoder
+      .reverse({
+        lat: getUser.rows[0].user_location[0],
+        lon: getUser.rows[0].user_location[1],
+      })
+      .then((res) => {
+        let find = res[0].formattedAddress
+          .split(",")
+          .filter((p, index) => p.includes("Tumani") == true);
+        location = `${res[0].country}, ${res[0].city}, ${find[0]}, ${res[0].streetName}, ${res[0].neighbourhood}`;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-  console.log(location);
+    console.log(location);
 
-  //   let res = {
-  //     count: category.rows[i].count,
-  //     order_id: category.rows[i].order_id,
-  //     user_id: category.rows[i].user_id,
-  //     username: category.rows[i].username,
-  //     phone_number: category.rows[i].phone_number,
-  //     total: category.rows[i].total,
-  //     products: category.rows[i].products,
-  //     comment: category.rows[i].comment,
-  //     payment_type: category.rows[i].payment_type,
-  //     exportation: category.rows[i].exportation,
-  //     created_at: category.rows[i].created_at,
-  //     location: location,
-  //   };
+    let res = {
+      count: category.rows[i].count,
+      order_id: category.rows[i].order_id,
+      user_id: category.rows[i].user_id,
+      username: category.rows[i].username,
+      phone_number: category.rows[i].phone_number,
+      total: category.rows[i].total,
+      products: category.rows[i].products,
+      comment: category.rows[i].comment,
+      payment_type: category.rows[i].payment_type,
+      exportation: category.rows[i].exportation,
+      created_at: category.rows[i].created_at,
+      location: location,
+    };
 
-  //   allOrders.push(res);
-  // }
+    allOrders.push(res);
+  }
 
   return res.status(200).json({
     orders: allOrders,
