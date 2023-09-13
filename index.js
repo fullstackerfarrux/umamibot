@@ -70,7 +70,7 @@ bot.on("contact", async (msg) => {
 });
 
 bot.on("location", async (msg) => {
-  console.log(msg.location);
+  console.log(msg);
   let { latitude, longitude } = msg.location;
   const location = [latitude, longitude];
 
