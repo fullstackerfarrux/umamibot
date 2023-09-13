@@ -84,12 +84,11 @@ export const getOrders = async (req, res) => {
         lon: getUser.rows[0].user_location[1],
       })
       .then((res) => {
-        let resLocation = `${res[0].country}, ${res[0].city}`;
         let find = res[0].formattedAddress
           .split(",")
           .filter((p, index) => p.includes("Tumani") == true);
+        let resLocation = `${res[0].country}, ${res[0].city}, ${find[0]}, ${res[0].streetName}, ${res[0].neighbourhood}`;
 
-        console.log(find);
         console.log(resLocation);
         console.log(res);
       })
