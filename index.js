@@ -79,27 +79,12 @@ bot.on("location", async (msg) => {
     `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`
   )
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then(
+      (data) =>
+        (locationString = `${data.address?.country}, ${data.address?.city}, ${data.address?.county}, ${data.address?.road}, ${data.address?.neighbourhood}`)
+    );
 
-  let options = {
-    provider: "openstreetmap",
-  };
-
-  let geoCoder = nodeGeocoder(options);
-  await geoCoder
-    .reverse({
-      lat: latitude,
-      lon: longitude,
-    })
-    .then((res) => {
-      let find = res[0].formattedAddress
-        .split(",")
-        .filter((p, index) => p.includes("Tumani") == true);
-      locationString = `${res[0].country}, ${res[0].city}, ${find[0]}, ${res[0].streetName}, ${res[0].neighbourhood}`;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  console.log(locationString);
 
   const update = await client.query(
     "UPDATE users SET user_location = $1, reverse_location = $2 WHERE user_id = $3",
