@@ -70,6 +70,7 @@ bot.on("contact", async (msg) => {
 });
 
 bot.on("location", async (msg) => {
+  console.log(msg.location);
   let { latitude, longitude } = msg.location;
   const location = [latitude, longitude];
 
@@ -78,19 +79,19 @@ bot.on("location", async (msg) => {
     [location, msg.from.id]
   );
 
-  bot.sendMessage(msg.chat.id, ` Для выбора товара нажмите на кнопку "Меню"`, {
-    reply_markup: JSON.stringify({
-      keyboard: [
-        [
-          {
-            text: `Меню`,
-            web_app: { url: "https://umamisushi.vercel.app/" },
-          },
-        ],
-      ],
-      resize_keyboard: true,
-    }),
-  });
+  // bot.sendMessage(msg.chat.id, ` Для выбора товара нажмите на кнопку "Меню"`, {
+  //   reply_markup: JSON.stringify({
+  //     keyboard: [
+  //       [
+  //         {
+  //           text: `Меню`,
+  //           web_app: { url: "https://umamisushi.vercel.app/" },
+  //         },
+  //       ],
+  //     ],
+  //     resize_keyboard: true,
+  //   }),
+  // });
 });
 
 bot.on("message", async (msg) => {

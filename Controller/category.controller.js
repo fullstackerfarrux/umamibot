@@ -107,19 +107,3 @@ export const getOrders = async (req, res) => {
     orders: allOrders,
   });
 };
-
-// {
-// count: 1,
-// order_id: '27d22598-51c6-4576-9a2b-4dc629f76eb4',
-// user_id: '609736291',
-// username: 'Farrux',
-// phone_number: '998903152006',
-// total: '99 000',
-// products: [
-//   '{"product_id":"262ce2c1-ab2c-4df5-b810-e999bd265042","product_name":"СЛИВОЧНАЯ","price":"80 000","count":1}'
-// ],
-// comment: '',
-// payment_type: 'Наличные',
-// exportation: 'Доставка',
-// created_at: 2023-08-28T20:12:47.804Z
-// }
