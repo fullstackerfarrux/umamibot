@@ -59,7 +59,7 @@ export const getOrders = async (req, res) => {
       category.rows[i].user_id,
     ]);
 
-    const location = "";
+    let location = "";
     let options = {
       provider: "openstreetmap",
     };
