@@ -51,11 +51,9 @@ export const getCategories = async (req, res) => {
 };
 
 export const getOrders = async (req, res) => {
-  const location = [];
-
   const allOrders = [];
   const category = await client.query("select * from orders");
-  console.log(category.rows[0]);
+
   for (let i = 0; i < category.rows.length; i++) {
     let res = {};
     res.count = category.rows[i].count;
@@ -74,11 +72,10 @@ export const getOrders = async (req, res) => {
       res.user_id,
     ]);
 
+    const location = "";
     let options = {
       provider: "openstreetmap",
     };
-
-    console.log(getUser.rows[0].user_location[0]);
 
     let geoCoder = nodeGeocoder(options);
     await geoCoder
@@ -87,6 +84,13 @@ export const getOrders = async (req, res) => {
         lon: getUser.rows[0].user_location[1],
       })
       .then((res) => {
+        let resLocation = `${res[0].country}, ${res[0].city}`;
+        let find = res[0].formattedAddress
+          .split(",")
+          .filter((p, index) => p.includes("tumani"));
+
+        console.log(find);
+        console.log(resLocation);
         console.log(res);
       })
       .catch((err) => {
