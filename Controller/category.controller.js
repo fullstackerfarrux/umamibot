@@ -87,7 +87,7 @@ export const getOrders = async (req, res) => {
         let resLocation = `${res[0].country}, ${res[0].city}`;
         let find = res[0].formattedAddress
           .split(",")
-          .filter((p, index) => console.log(p));
+          .filter((p, index) => p.includes("Tumani") == true);
 
         console.log(find);
         console.log(resLocation);
