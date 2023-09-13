@@ -58,7 +58,7 @@ create table promocode(
     initial_amount INT NOT NULL,
     usage_limit INT,
     isActive BOOLEAN,
-    usedCount INT,
+    usedCount INT DEFAULT 0,
     created_at VARCHAR NOT NULL,
     users_id VARCHAR[]
 );
