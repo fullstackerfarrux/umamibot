@@ -76,8 +76,6 @@ export const getOrders = async (req, res) => {
           : "",
     };
 
-    console.log(res.location);
-
     allOrders.push(res);
   }
 
