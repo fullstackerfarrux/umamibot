@@ -7,11 +7,11 @@ import client from "./db/config.js";
 import loginRoute from "./Router/login.route.js";
 import productRoute from "./Router/products.route.js";
 import categoryRoute from "./Router/category.route.js";
+import ordersRoute from "./Router/orders.route.js";
 import userRoute from "./Router/user.route.js";
 import bannerRoute from "./Router/banner.route.js";
 import promoRoute from "./Router/promocode.route.js";
 import newsletterRoute from "./Router/newsletter.route.js";
-import nodeGeocoder from "node-geocoder";
 
 const app = express();
 app.use(cors());
@@ -95,7 +95,7 @@ bot.on("location", async (msg) => {
         [
           {
             text: `Меню`,
-            web_app: { url: "https://umamisushi.vercel.app/" },
+            web_app: { url: `https://umamisushi.vercel.app/${msg.from.id}` },
           },
         ],
       ],
@@ -230,6 +230,7 @@ bot.on("successful_payment", async (msg) => {
 app.use(loginRoute);
 app.use(productRoute);
 app.use(categoryRoute);
+app.use(ordersRoute);
 app.use(userRoute);
 app.use(bannerRoute);
 app.use(promoRoute);
