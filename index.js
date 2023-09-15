@@ -145,14 +145,11 @@ bot.on("message", async (msg) => {
         } else {
           users_id.push(msg.from.id);
         }
-        console.log(getPromo.rows[0], "1nchsi");
-        console.log(users_id, "users,id");
-        console.log(getPromo.rows[0].usedCount, "usedCount");
+
         let updatePromo = await client.query(
           "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
           [usedCount, users_id, getPromo.rows[0].id]
         );
-        console.log(updatePromo, "update");
 
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 

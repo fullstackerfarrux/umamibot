@@ -53,7 +53,7 @@ export const getForUse = async (req, res) => {
     [text]
   );
 
-  if (getOne.rows.usage_limit >= getOne.rows.usedcount) {
+  if (getOne.rows[0].usage_limit >= getOne.rows[0].usedcount) {
     let updatePromo = await client.query(
       "UPDATE promocode SET isActive = false WHERE id = $1",
       [getOne.rows[0].id]
@@ -61,6 +61,19 @@ export const getForUse = async (req, res) => {
     return res.status(400).json({
       msg: "Not Found",
     });
+  }
+
+  if (
+    getOne.rows[0].users_id !== undefined &&
+    getOne.rows[0].users_id.length > 0
+  ) {
+    for (let i = 0; i < getOne.rows[0].users_id.length; i++) {
+      if (getOne.rows[0].users_id[i] == id) {
+        return res.status(400).json({
+          msg: "Not Found",
+        });
+      }
+    }
   }
 
   console.log(getOne.rows);
