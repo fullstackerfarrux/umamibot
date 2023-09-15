@@ -133,6 +133,7 @@ bot.on("message", async (msg) => {
           [data.promocode]
         );
         let users_id = [];
+        let usedCount = +getPromo.rows[0].usedCount + 1;
         if (
           getPromo.rows[0].users_id !== undefined &&
           getPromo.rows[0].users_id?.length > 0
@@ -146,9 +147,10 @@ bot.on("message", async (msg) => {
         }
         console.log(getPromo.rows[0], "1nchsi");
         console.log(users_id, "users,id");
+        console.log(usedCount, "usedCount +");
         let updatePromo = await client.query(
           "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
-          [+getPromo.rows[0].usedCount + 1, users_id, getPromo.rows[0].id]
+          [usedCount, users_id, getPromo.rows[0].id]
         );
         console.log(updatePromo, "update");
 
