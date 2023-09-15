@@ -151,6 +151,13 @@ bot.on("message", async (msg) => {
           [usedCount, users_id, getPromo.rows[0].id]
         );
 
+        if (getPromo.rows[0].usage_limit == getPromo.rows[0].usedcount + 1) {
+          let updatePromo = await client.query(
+            "UPDATE promocode SET isActive = false WHERE id = $1",
+            [getPromo.rows[0].id]
+          );
+        }
+
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
         const token = process.env.TelegramApi;
