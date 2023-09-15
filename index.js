@@ -95,7 +95,7 @@ bot.on("location", async (msg) => {
         [
           {
             text: `Меню`,
-            web_app: { url: `https://umamisushi.vercel.app` },
+            web_app: { url: `https://umamisushi.vercel.app/${msg.from.id}` },
           },
         ],
       ],
