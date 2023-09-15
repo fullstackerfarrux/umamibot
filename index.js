@@ -128,6 +128,17 @@ bot.on("message", async (msg) => {
           ]
         );
 
+        let getPromo = await client.query(
+          "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
+          [data.promocode]
+        );
+        console.log(getPromo.rows[0], "1nchsi");
+        let updatePromo = await client.query(
+          "UPDATE promocode SET usedCount = $1 WHERE id = $2",
+          [+getPromo.rows[0].usedCount + 1, getPromo.rows[0].id]
+        );
+        console.log(updatePromo, "update");
+
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
         const token = process.env.TelegramApi;

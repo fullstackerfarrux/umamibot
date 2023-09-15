@@ -53,6 +53,16 @@ export const getForUse = async (req, res) => {
     [text]
   );
 
+  if (getOne.rows.usage_limit >= getOne.rows.usedcount) {
+    let updatePromo = await client.query(
+      "UPDATE promocode SET isActive = false WHERE id = $1",
+      [getOne.rows[0].id]
+    );
+    return res.status(400).json({
+      msg: "Not Found",
+    });
+  }
+
   console.log(getOne.rows);
   return res.status(200).json({
     msg: getOne.rows,
