@@ -49,11 +49,11 @@ export const getForUse = async (req, res) => {
   let { id, text } = req.body;
 
   let getOne = await client.query(
-    "SELECT * FROM promocode WHERE title = $1 AND isActive = false",
+    "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
     [text]
   );
 
-  console.log(getOne.rows);
+  console.log(getOne.rows.users_id);
   return res.status(200).json({
     msg: getOne.rows,
   });
