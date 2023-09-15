@@ -70,7 +70,7 @@ export const getForUse = async (req, res) => {
 
     if (
       getOne.rows[0].users_id !== undefined &&
-      getOne.rows[0].users_id.length > 0
+      getOne.rows[0].users_id?.length > 0
     ) {
       for (let i = 0; i < getOne.rows[0].users_id.length; i++) {
         if (getOne.rows[0].users_id[i] == id) {
