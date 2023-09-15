@@ -53,6 +53,9 @@ export const getForUse = async (req, res) => {
     [text]
   );
 
+  console.log(getOne.rows, "1");
+  console.log(getOne.rows[0], "2");
+
   if (getOne.rows[0].usage_limit >= getOne.rows[0].usedcount) {
     let updatePromo = await client.query(
       "UPDATE promocode SET isActive = false WHERE id = $1",
