@@ -53,16 +53,12 @@ export const getForUse = async (req, res) => {
     [text]
   );
 
-  console.log(getOne.rows);
-
   if (getOne.rows.length > 0) {
-    console.log("brnch if kirdi");
     if (getOne.rows[0].usage_limit <= getOne.rows[0]?.usedcount) {
       let updatePromo = await client.query(
         "UPDATE promocode SET isActive = false WHERE id = $1",
         [getOne.rows[0].id]
       );
-      console.log("usage limit ishladi");
       return res.status(200).json({
         msg: "Not Found",
       });
@@ -74,7 +70,6 @@ export const getForUse = async (req, res) => {
     ) {
       for (let i = 0; i < getOne.rows[0].users_id.length; i++) {
         if (getOne.rows[0].users_id[i] == id) {
-          console.log("ishlatlga");
           return res.status(200).json({
             msg: "Not Found",
           });
@@ -82,11 +77,11 @@ export const getForUse = async (req, res) => {
       }
     }
   } else {
-    console.log("else ishladi");
     return res.status(200).json({
       msg: "Not Found",
     });
   }
+
   return res.status(200).json({
     msg: getOne.rows[0],
   });
