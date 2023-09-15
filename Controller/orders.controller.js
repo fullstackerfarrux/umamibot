@@ -43,9 +43,6 @@ export const getOneOrder = async (req, res) => {
     [user_id]
   );
 
-  console.log(category.rows);
-  console.log(category.rowCount, "count");
-
   return res.status(200).json({
     orders: category.rows,
   });

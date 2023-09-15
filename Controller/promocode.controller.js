@@ -49,7 +49,7 @@ export const getForUse = async (req, res) => {
   let { id, text } = req.body;
 
   let getOne = await client.query(
-    "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
+    "SELECT * FROM promocode WHERE title = $1 AND isActive = false",
     [text]
   );
 
