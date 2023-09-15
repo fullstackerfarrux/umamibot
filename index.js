@@ -135,7 +135,7 @@ bot.on("message", async (msg) => {
         let users_id = [];
         if (
           getPromo.rows[0].users_id !== undefined &&
-          getPromo.rows[0].users_id.length > 0
+          getPromo.rows[0].users_id?.length > 0
         ) {
           for (let i = 0; i < getPromo.rows[0].users_id.length; i++) {
             users_id.push(getPromo.rows[0].users_id[i]);
