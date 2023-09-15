@@ -70,6 +70,7 @@ export const getForUse = async (req, res) => {
     ) {
       for (let i = 0; i < getOne.rows[0].users_id.length; i++) {
         if (getOne.rows[0].users_id[i] == id) {
+          console.log("ishlatlga");
           return res.status(200).json({
             msg: "Not Found",
           });
