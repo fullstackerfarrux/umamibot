@@ -58,7 +58,7 @@ export const getForUse = async (req, res) => {
       "UPDATE promocode SET isActive = false WHERE id = $1",
       [getOne.rows[0].id]
     );
-    return res.status(400).json({
+    return res.status(200).json({
       msg: "Not Found",
     });
   }
@@ -69,7 +69,7 @@ export const getForUse = async (req, res) => {
   ) {
     for (let i = 0; i < getOne.rows[0].users_id.length; i++) {
       if (getOne.rows[0].users_id[i] == id) {
-        return res.status(400).json({
+        return res.status(200).json({
           msg: "Not Found",
         });
       }
