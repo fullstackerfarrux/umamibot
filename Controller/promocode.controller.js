@@ -88,6 +88,6 @@ export const getForUse = async (req, res) => {
     });
   }
   return res.status(200).json({
-    msg: getOne.rows,
+    msg: getOne.rows[0],
   });
 };
