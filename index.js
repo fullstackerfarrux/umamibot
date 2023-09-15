@@ -132,10 +132,23 @@ bot.on("message", async (msg) => {
           "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
           [data.promocode]
         );
+        let users_id = [];
+        if (
+          getPromo.rows[0].users_id !== undefined &&
+          getPromo.rows[0].users_id.length > 0
+        ) {
+          for (let i = 0; i < getPromo.rows[0].users_id.length; i++) {
+            users_id.push(getPromo.rows[0].users_id[i]);
+          }
+          users_id.push(msg.from.id);
+        } else {
+          users_id.push(msg.from.id);
+        }
         console.log(getPromo.rows[0], "1nchsi");
+        console.log(users_id, "users,id");
         let updatePromo = await client.query(
-          "UPDATE promocode SET usedCount = $1 WHERE id = $2",
-          [+getPromo.rows[0].usedCount + 1, getPromo.rows[0].id]
+          "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
+          [+getPromo.rows[0].usedCount + 1, users_id, getPromo.rows[0].id]
         );
         console.log(updatePromo, "update");
 
