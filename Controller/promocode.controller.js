@@ -44,3 +44,17 @@ export const deletePromo = async (req, res) => {
     msg: "Updated!",
   });
 };
+
+export const getForUse = async (req, res) => {
+  let { id, text } = req.body;
+
+  let getOne = await client.query(
+    "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
+    [text]
+  );
+
+  console.log(getOne.rows);
+  return res.status(200).json({
+    msg: getOne.rows,
+  });
+};
