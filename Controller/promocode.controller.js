@@ -53,7 +53,7 @@ export const getForUse = async (req, res) => {
     [text]
   );
 
-  console.log(getOne.rows.users_id);
+  console.log(getOne.rows);
   return res.status(200).json({
     msg: getOne.rows,
   });
