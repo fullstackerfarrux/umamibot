@@ -69,7 +69,7 @@ export const changeDelivery = async (req, res) => {
 };
 
 export const getDelivery = async (req, res) => {
-  let getSettings = await client.query("SELECT * FROM settings");
+  let getSettings = await client.query("SELECT delivery_price FROM settings");
 
   return res.status(200).send({
     msg: getSettings.rows[0],
