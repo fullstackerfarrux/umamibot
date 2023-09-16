@@ -38,12 +38,11 @@ export const getOrders = async (req, res) => {
 export const getOneOrder = async (req, res) => {
   let { user_id } = req.body;
 
-  const category = await client.query(
-    "select * from orders where user_id = $1",
-    [user_id]
-  );
+  const orders = await client.query("select * from orders where user_id = $1", [
+    user_id,
+  ]);
 
   return res.status(200).json({
-    orders: category.rows,
+    orders: orders.rows,
   });
 };
