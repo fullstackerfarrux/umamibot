@@ -30,9 +30,29 @@ export const getUsersOrder = async (req, res) => {
       [users.rows[i].user_id]
     );
 
+    let date = new Date(Date.parse(users.rows[i].created_at));
+    let str =
+      date.getDate() > 9
+        ? date.getDate()
+        : `0${date.getDate()}` +
+          "." +
+          (date.getMonth() > 9
+            ? date.getMonth() + 1
+            : `0${date.getMonth() + 1}`) +
+          "." +
+          date.getFullYear() +
+          ", " +
+          (date.getHours() <= 9 ? `0${date.getHours()}` : date.getHours()) +
+          ":" +
+          (date.getMinutes() <= 9
+            ? `0${date.getMinutes()}`
+            : date.getMinutes());
+
+    console.log(str);
+
     let res = {
       id: users.rows[i].user_id,
-      created_date: new Date(Date.parse(users.rows[i].created_at)),
+      created_date: str,
       username: users.rows[i].username,
       phone_number: users.rows[i].phone_number,
       orders_count: getOrders.rowCount,
