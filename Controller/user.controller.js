@@ -16,6 +16,6 @@ export const getUsers = async (req, res) => {
   const user = await client.query("select * from users");
 
   return res.status(200).json({
-    user: user.rows,
+    users: user.rows,
   });
 };
