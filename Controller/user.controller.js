@@ -25,17 +25,16 @@ export const getUsersOrder = async (req, res) => {
 
   let reversedUsers = [];
   for (let i = 0; i < users.rows?.length; i++) {
-    console.log(users.rows[i]);
     let getOrders = await client.query(
       "SELECT * FROM orders WHERE user_id = $1",
       [users.rows[i].user_id]
     );
 
     let res = {
-      id: users[i].user_id,
-      created_date: new Date(Date.parse(users[i].created_at)),
-      username: users[i].username,
-      phone_number: users[i].phone_number,
+      id: users.rows[i].user_id,
+      created_date: new Date(Date.parse(users.rows[i].created_at)),
+      username: users.rows[i].username,
+      phone_number: users.rows[i].phone_number,
       orders_count: getOrders.rowCount,
     };
 
