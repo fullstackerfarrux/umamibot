@@ -38,15 +38,11 @@ export const getUsersOrder = async (req, res) => {
         : `0${date.getMonth() + 1}`;
 
     let year = `${date.getFullYear()}`;
-
-    console.log(day);
-    console.log(month);
-    console.log(year);
-    console.log(`${day}.${month}.${year}`);
+    let resDate = `${day}.${month}.${year}`;
 
     let res = {
       id: users.rows[i].user_id,
-      created_date: str,
+      created_date: resDate,
       username: users.rows[i].username,
       phone_number: users.rows[i].phone_number,
       orders_count: getOrders.rowCount,
