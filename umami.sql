@@ -63,3 +63,11 @@ create table promocode(
     created_at VARCHAR NOT NULL,
     users_id VARCHAR[]
 );
+
+drop table if exists settings;
+create table settings(
+    id VARCHAR DEFAULT gen_random_uuid(),
+    admin_login VARCHAR NOT NULL,
+    admin_password VARCHAR NOT NULL,
+    delivery_price INT
+);
