@@ -25,6 +25,7 @@ export const getUsersOrder = async (req, res) => {
 
   let reversedUsers = [];
   for (let i = 0; i < users.rows?.length; i++) {
+    console.log(users.rows[i]);
     let getOrders = await client.query(
       "SELECT * FROM orders WHERE user_id = $1",
       [users.rows[i].user_id]
