@@ -43,7 +43,7 @@ export const getUsersOrder = async (req, res) => {
     let res = {
       id: users.rows[i].user_id,
       created_date: resDate,
-      username: users.rows[i].username,
+      username: users.rows[i].firstname,
       phone_number: users.rows[i].phone_number,
       orders_count: getOrders.rowCount,
       count: i + 1,
