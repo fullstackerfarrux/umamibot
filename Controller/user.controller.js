@@ -38,8 +38,12 @@ export const getUsersOrder = async (req, res) => {
       orders_count: getOrders.rowCount,
     };
 
-    reversedUsers.push(res);
+    console.log(res);
+
+    reversedUsers.unshift(res);
   }
+
+  console.log(reversedUsers);
 
   return res.status(200).json({
     users: reversedUsers.rows,
