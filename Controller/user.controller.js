@@ -31,24 +31,18 @@ export const getUsersOrder = async (req, res) => {
     );
 
     let date = new Date(Date.parse(users.rows[i].created_at));
-    let str =
-      date.getDate() > 9
-        ? date.getDate()
-        : `0${date.getDate()}` +
-          "." +
-          (date.getMonth() > 9
-            ? date.getMonth() + 1
-            : `0${date.getMonth() + 1}`) +
-          "." +
-          date.getFullYear() +
-          ", " +
-          (date.getHours() <= 9 ? `0${date.getHours()}` : date.getHours()) +
-          ":" +
-          (date.getMinutes() <= 9
-            ? `0${date.getMinutes()}`
-            : date.getMinutes());
+    let day = date.getDate() > 9 ? `${date.getDate()}` : `0${date.getDate()}`;
+    let month =
+      date.getMonth() > 9
+        ? `${date.getMonth() + 1}`
+        : `0${date.getMonth() + 1}`;
 
-    console.log(str);
+    let year = `${date.getFullYear()}`;
+
+    console.log(day);
+    console.log(month);
+    console.log(year);
+    console.log(`${day}.${month}.${year}`);
 
     let res = {
       id: users.rows[i].user_id,
