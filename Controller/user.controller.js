@@ -36,6 +36,7 @@ export const getUsersOrder = async (req, res) => {
       username: users.rows[i].username,
       phone_number: users.rows[i].phone_number,
       orders_count: getOrders.rowCount,
+      count: i + 1,
     };
 
     reversedUsers.unshift(res);
