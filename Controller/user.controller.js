@@ -46,6 +46,6 @@ export const getUsersOrder = async (req, res) => {
   console.log(reversedUsers);
 
   return res.status(200).json({
-    users: reversedUsers.rows,
+    users: reversedUsers,
   });
 };
