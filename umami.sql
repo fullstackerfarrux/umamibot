@@ -10,7 +10,8 @@ create table users(
     firstname VARCHAR NOT NULL,
     phone_number VARCHAR NOT NULL,
     user_location VARCHAR[],
-    reverse_location VARCHAR
+    reverse_location VARCHAR,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 drop table if exists product;
