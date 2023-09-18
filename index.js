@@ -204,7 +204,7 @@ bot.on("message", async (msg) => {
 
           let send = await bot.sendInvoice(
             msg.chat.id,
-            `Оформления заказа `,
+            (title = `Оформления заказа `),
             `Descripotion`,
             "Payload",
             "387026696:LIVE:64f8122708166ba0cd2ac698",
@@ -214,8 +214,7 @@ bot.on("message", async (msg) => {
                 label: "test",
                 amount: 5000 * 100,
               },
-            ],
-            "get_access"
+            ]
           );
 
           console.log(send);
