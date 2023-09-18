@@ -204,7 +204,7 @@ bot.on("message", async (msg) => {
 
           let send = await bot.sendInvoice(
             msg.chat.id,
-            (title = `Оформления заказа `),
+            `Оформления заказа `,
             `Descripotion`,
             "Payload",
             "387026696:LIVE:64f8122708166ba0cd2ac698",
