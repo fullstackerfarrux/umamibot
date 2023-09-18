@@ -214,13 +214,13 @@ bot.on("message", async (msg) => {
             ]
           );
         } else {
-          // await axios.post(
-          //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
-          // );
+          await axios.post(
+            `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
+          );
 
-          // await axios.post(
-          //   `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
-          // );
+          await axios.post(
+            `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
+          );
 
           await bot.sendMessage(
             msg.chat.id,
