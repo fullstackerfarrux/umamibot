@@ -208,6 +208,7 @@ bot.on("message", async (msg) => {
             `Descripotion`,
             "Payload",
             "387026696:LIVE:64f8122708166ba0cd2ac698",
+            "get_access",
             "UZS",
             [
               {
@@ -248,25 +249,25 @@ bot.on("message", async (msg) => {
   }
 });
 
-bot.on("pre_checkout_query", async (query) => {
-  console.log(`[bot] pre checkout`);
-  console.log(query);
-  console.log(query.id);
-  let answerCheckout = await bot.answerPreCheckoutQuery(query.id, true);
-  console.log("answer_precheckout_query", answerCheckout);
+// bot.on("pre_checkout_query", async (query) => {
+//   console.log(`[bot] pre checkout`);
+//   console.log(query);
+//   console.log(query.id);
+//   // let answerCheckout = await bot.answerPreCheckoutQuery(query.id, true);
+//   console.log("answer_precheckout_query", answerCheckout);
 
-  bot.on("successful_payment", async (msg) => {
-    console.log(`[bot] successful payment in pre`);
-    console.log("Successful Payment in pre", msg);
-    await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
-  });
-});
+//   // bot.on("successful_payment", async (msg) => {
+//   //   console.log(`[bot] successful payment in pre`);
+//   //   console.log("Successful Payment in pre", msg);
+//   //   await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
+//   // });
+// });
 
-bot.on("successful_payment", async (msg) => {
-  console.log(`[bot] successful payment`);
-  console.log("Successful Payment", msg);
-  await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
-});
+// bot.on("successful_payment", async (msg) => {
+//   console.log(`[bot] successful payment`);
+//   console.log("Successful Payment", msg);
+//   await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
+// });
 
 app.use(loginRoute);
 app.use(productRoute);
