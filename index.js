@@ -208,14 +208,14 @@ bot.on("message", async (msg) => {
             `Descripotion`,
             "Payload",
             "387026696:LIVE:64f8122708166ba0cd2ac698",
-            "get_access",
             "UZS",
             [
               {
                 label: "test",
                 amount: 5000 * 100,
               },
-            ]
+            ],
+            "get_access"
           );
 
           console.log(send);
