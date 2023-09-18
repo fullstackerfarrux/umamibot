@@ -205,9 +205,9 @@ bot.on("message", async (msg) => {
           let send = await bot.sendInvoice({
             chat_id: msg.chat.id,
             description: `Descripotion`,
-            title: `Оформления заказа `,
             start_parameter: "get_access",
             payload: "Payload",
+            title: `Оформления заказа `,
             provider_token: "387026696:LIVE:64f8122708166ba0cd2ac698",
             currency: "UZS",
             prices: [
