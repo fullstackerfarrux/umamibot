@@ -128,36 +128,38 @@ bot.on("message", async (msg) => {
           ]
         );
 
-        let getPromo = await client.query(
-          "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
-          [data.promocode]
-        );
-        let users_id = [];
-        let usedCount = getPromo.rows[0].usedcount + 1;
-        if (
-          getPromo.rows[0].users_id !== undefined &&
-          getPromo.rows[0].users_id?.length > 0
-        ) {
-          for (let i = 0; i < getPromo.rows[0].users_id.length; i++) {
-            users_id.push(getPromo.rows[0].users_id[i]);
-          }
-          users_id.push(msg.from.id);
-        } else {
-          users_id.push(msg.from.id);
-        }
-
-        let updatePromo = await client.query(
-          "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
-          [usedCount, users_id, getPromo.rows[0].id]
-        );
-
-        if (getPromo.rows[0].usage_limit == getPromo.rows[0].usedcount + 1) {
-          let updatePromo = await client.query(
-            "UPDATE promocode SET isActive = false WHERE id = $1",
-            [getPromo.rows[0].id]
+        if (data.promocode !== "") {
+          let getPromo = await client.query(
+            "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
+            [data.promocode]
           );
-        }
 
+          let users_id = [];
+          let usedCount = getPromo.rows[0]?.usedcount + 1;
+          if (
+            getPromo.rows[0].users_id !== undefined &&
+            getPromo.rows[0].users_id?.length > 0
+          ) {
+            for (let i = 0; i < getPromo.rows[0].users_id.length; i++) {
+              users_id.push(getPromo.rows[0].users_id[i]);
+            }
+            users_id.push(msg.from.id);
+          } else {
+            users_id.push(msg.from.id);
+          }
+
+          let updatePromo = await client.query(
+            "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
+            [usedCount, users_id, getPromo.rows[0].id]
+          );
+
+          if (getPromo.rows[0].usage_limit == getPromo.rows[0].usedcount + 1) {
+            let updatePromo = await client.query(
+              "UPDATE promocode SET isActive = false WHERE id = $1",
+              [getPromo.rows[0].id]
+            );
+          }
+        }
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
         const token = process.env.TelegramApi;
