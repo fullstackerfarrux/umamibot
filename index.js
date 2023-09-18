@@ -216,6 +216,8 @@ bot.on("message", async (msg) => {
               },
             ]
           );
+
+          console.log(send);
         } else {
           await axios.post(
             `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
