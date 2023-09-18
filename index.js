@@ -206,9 +206,9 @@ bot.on("message", async (msg) => {
             msg.chat.id,
             `Оформления заказа `,
             `Descripotion`,
+            "get_access",
             "Payload",
             "387026696:LIVE:64f8122708166ba0cd2ac698",
-            "get_access",
             "UZS",
             [
               {
