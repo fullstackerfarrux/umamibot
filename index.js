@@ -202,21 +202,21 @@ bot.on("message", async (msg) => {
             price.push({ label: "Доставка", amount: 19000 * 100 });
           }
 
-          let send = await bot.sendInvoice({
-            chat_id: msg.chat.id,
-            description: `Descripotion`,
-            start_parameter: "get_access",
-            payload: "Payload",
-            title: `Оформления заказа `,
-            provider_token: "387026696:LIVE:64f8122708166ba0cd2ac698",
-            currency: "UZS",
-            prices: [
+          let send = await bot.sendInvoice(
+            msg.chat.id,
+            `Оформления заказа `,
+            `Descripotion`,
+            "Payload",
+            "387026696:LIVE:64f8122708166ba0cd2ac698",
+            "get_access",
+            "UZS",
+            [
               {
                 label: "test",
                 amount: 5000 * 100,
               },
-            ],
-          });
+            ]
+          );
 
           console.log(send);
         } else {
