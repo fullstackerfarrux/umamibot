@@ -114,52 +114,52 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        let create = await client.query(
-          "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
-          [
-            data.order_products,
-            `${data.total}`,
-            msg.from.id,
-            msg.from.first_name,
-            user.rows[0].phone_number,
-            data.comment,
-            data.payment,
-            data.delivery,
-          ]
-        );
+        // let create = await client.query(
+        //   "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
+        //   [
+        //     data.order_products,
+        //     `${data.total}`,
+        //     msg.from.id,
+        //     msg.from.first_name,
+        //     user.rows[0].phone_number,
+        //     data.comment,
+        //     data.payment,
+        //     data.delivery,
+        //   ]
+        // );
 
-        if (data.promocode !== "") {
-          let getPromo = await client.query(
-            "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
-            [data.promocode]
-          );
+        // if (data.promocode !== "") {
+        //   let getPromo = await client.query(
+        //     "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
+        //     [data.promocode]
+        //   );
 
-          let users_id = [];
-          let usedCount = getPromo.rows[0]?.usedcount + 1;
-          if (
-            getPromo.rows[0].users_id !== undefined &&
-            getPromo.rows[0].users_id?.length > 0
-          ) {
-            for (let i = 0; i < getPromo.rows[0].users_id.length; i++) {
-              users_id.push(getPromo.rows[0].users_id[i]);
-            }
-            users_id.push(msg.from.id);
-          } else {
-            users_id.push(msg.from.id);
-          }
+        //   let users_id = [];
+        //   let usedCount = getPromo.rows[0]?.usedcount + 1;
+        //   if (
+        //     getPromo.rows[0].users_id !== undefined &&
+        //     getPromo.rows[0].users_id?.length > 0
+        //   ) {
+        //     for (let i = 0; i < getPromo.rows[0].users_id.length; i++) {
+        //       users_id.push(getPromo.rows[0].users_id[i]);
+        //     }
+        //     users_id.push(msg.from.id);
+        //   } else {
+        //     users_id.push(msg.from.id);
+        //   }
 
-          let updatePromo = await client.query(
-            "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
-            [usedCount, users_id, getPromo.rows[0].id]
-          );
+        //   let updatePromo = await client.query(
+        //     "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
+        //     [usedCount, users_id, getPromo.rows[0].id]
+        //   );
 
-          if (getPromo.rows[0].usage_limit == getPromo.rows[0].usedcount + 1) {
-            let updatePromo = await client.query(
-              "UPDATE promocode SET isActive = false WHERE id = $1",
-              [getPromo.rows[0].id]
-            );
-          }
-        }
+        //   if (getPromo.rows[0].usage_limit == getPromo.rows[0].usedcount + 1) {
+        //     let updatePromo = await client.query(
+        //       "UPDATE promocode SET isActive = false WHERE id = $1",
+        //       [getPromo.rows[0].id]
+        //     );
+        //   }
+        // }
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
         const token = process.env.TelegramApi;
