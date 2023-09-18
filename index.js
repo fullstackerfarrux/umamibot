@@ -187,6 +187,7 @@ bot.on("message", async (msg) => {
         `;
 
         if (data.payment == "РауМе") {
+          console.log("payme tanlandi");
           let price = data.order_products.map((p, index) => {
             let num = p.price.replace(/\D/g, "");
             var price = parseInt(num);
