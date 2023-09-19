@@ -215,7 +215,7 @@ bot.on("message", async (msg) => {
             `Оформления заказа `,
             `Descripotion`,
             "Payload",
-            "371317599:TEST:1693910757574",
+            "387026696:LIVE:64f8122708166ba0cd2ac698",
             "UZS",
             [
               {
