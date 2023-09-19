@@ -114,24 +114,21 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        // if (data.payment !== "РауМе") {
-        //   let create = await client.query(
-        //     "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
-        //     [
-        //       data.order_products,
-        //       `${data.total}`,
-        //       msg.from.id,
-        //       msg.from.first_name,
-        //       user.rows[0].phone_number,
-        //       data.comment,
-        //       data.payment,
-        //       data.delivery,
-        //     ]
-        //   );
-        // }
-
-        console.log(data);
-        console.log(data.total);
+        if (data.payment !== "РауМе") {
+          let create = await client.query(
+            "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
+            [
+              data.order_products,
+              `${data.total}`,
+              msg.from.id,
+              msg.from.first_name,
+              user.rows[0].phone_number,
+              data.comment,
+              data.payment,
+              data.delivery,
+            ]
+          );
+        }
 
         if (data.promocode !== "") {
           let getPromo = await client.query(
@@ -191,110 +188,110 @@ bot.on("message", async (msg) => {
   })} %0A
         `;
 
-        // if (data.payment == "РауМе") {
-        //   let price = data.order_products.map((p, index) => {
-        //     let num = p.price.replace(/\D/g, "");
-        //     var price = parseInt(num);
+        if (data.payment == "РауМе") {
+          let price = data.order_products.map((p, index) => {
+            let num = p.price.replace(/\D/g, "");
+            var price = parseInt(num);
 
-        //     return {
-        //       label: `${p.product_name}`,
-        //       amount: `${price * p.count * 100}`,
-        //     };
-        //   });
+            return {
+              label: `${p.product_name}`,
+              amount: `${price * p.count * 100}`,
+            };
+          });
 
-        //   let deliveryPrice = await client.query(
-        //     "SELECT delivery_price FROM settings"
-        //   );
+          let deliveryPrice = await client.query(
+            "SELECT delivery_price FROM settings"
+          );
 
-        //   if (data.delivery == "Доставка") {
-        //     price.push({
-        //       label: "Доставка",
-        //       amount: deliveryPrice.rows[0].delivery_price * 100,
-        //     });
-        //   }
+          if (data.delivery == "Доставка") {
+            price.push({
+              label: "Доставка",
+              amount: deliveryPrice.rows[0].delivery_price * 100,
+            });
+          }
 
-        //   let send = await bot.sendInvoice(
-        //     msg.chat.id,
-        //     `Оформления заказа `,
-        //     `Descripotion`,
-        //     "Payload",
-        //     "387026696:LIVE:64f8122708166ba0cd2ac698",
-        //     "UZS",
-        //     [
-        //       {
-        //         label: "test",
-        //         amount: 5000 * 100,
-        //       },
-        //     ]
-        //   );
+          let send = await bot.sendInvoice(
+            msg.chat.id,
+            `Оформления заказа `,
+            `Descripotion`,
+            "Payload",
+            "387026696:LIVE:64f8122708166ba0cd2ac698",
+            "UZS",
+            [
+              {
+                label: "test",
+                amount: 5000 * 100,
+              },
+            ]
+          );
 
-        //   bot.on("pre_checkout_query", async (query) => {
-        //     let answerCheckout = await bot.answerPreCheckoutQuery(
-        //       query.id,
-        //       true
-        //     );
-        //   });
+          bot.on("pre_checkout_query", async (query) => {
+            let answerCheckout = await bot.answerPreCheckoutQuery(
+              query.id,
+              true
+            );
+          });
 
-        //   bot.on("successful_payment", async (msg) => {
-        //     let create = await client.query(
-        //       "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
-        //       [
-        //         data.order_products,
-        //         `${data.total}`,
-        //         msg.from.id,
-        //         msg.from.first_name,
-        //         user.rows[0].phone_number,
-        //         data.comment,
-        //         data.payment,
-        //         data.delivery,
-        //       ]
-        //     );
+          bot.on("successful_payment", async (msg) => {
+            let create = await client.query(
+              "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
+              [
+                data.order_products,
+                `${data.total}`,
+                msg.from.id,
+                msg.from.first_name,
+                user.rows[0].phone_number,
+                data.comment,
+                data.payment,
+                data.delivery,
+              ]
+            );
 
-        //     await axios.post(
-        //       `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
-        //     );
+            await axios.post(
+              `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
+            );
 
-        //     await axios.post(
-        //       `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
-        //     );
+            await axios.post(
+              `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
+            );
 
-        //     await bot.sendMessage(
-        //       msg.chat.id,
-        //       `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
-        //   Для нового заказа нажмите на кнопку "Отправить контакт"`,
-        //       {
-        //         reply_markup: JSON.stringify({
-        //           keyboard: [
-        //             [{ text: "Отправить контакт", request_contact: true }],
-        //           ],
-        //           resize_keyboard: true,
-        //         }),
-        //       }
-        //     );
-        //   });
-        // } else {
-        //   await axios.post(
-        //     `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
-        //   );
+            await bot.sendMessage(
+              msg.chat.id,
+              `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
+          Для нового заказа нажмите на кнопку "Отправить контакт"`,
+              {
+                reply_markup: JSON.stringify({
+                  keyboard: [
+                    [{ text: "Отправить контакт", request_contact: true }],
+                  ],
+                  resize_keyboard: true,
+                }),
+              }
+            );
+          });
+        } else {
+          await axios.post(
+            `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
+          );
 
-        //   await axios.post(
-        //     `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
-        //   );
+          await axios.post(
+            `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
+          );
 
-        //   await bot.sendMessage(
-        //     msg.chat.id,
-        //     `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
-        //   Для нового заказа нажмите на кнопку "Отправить контакт"`,
-        //     {
-        //       reply_markup: JSON.stringify({
-        //         keyboard: [
-        //           [{ text: "Отправить контакт", request_contact: true }],
-        //         ],
-        //         resize_keyboard: true,
-        //       }),
-        //     }
-        //   );
-        // }
+          await bot.sendMessage(
+            msg.chat.id,
+            `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
+          Для нового заказа нажмите на кнопку "Отправить контакт"`,
+            {
+              reply_markup: JSON.stringify({
+                keyboard: [
+                  [{ text: "Отправить контакт", request_contact: true }],
+                ],
+                resize_keyboard: true,
+              }),
+            }
+          );
+        }
       }
     } catch (error) {
       console.log("error ->", error);
