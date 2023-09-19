@@ -114,19 +114,21 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        let create = await client.query(
-          "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
-          [
-            data.order_products,
-            `${data.total}`,
-            msg.from.id,
-            msg.from.first_name,
-            user.rows[0].phone_number,
-            data.comment,
-            data.payment,
-            data.delivery,
-          ]
-        );
+        if (data.payment !== "РауМе") {
+          let create = await client.query(
+            "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
+            [
+              data.order_products,
+              `${data.total}`,
+              msg.from.id,
+              msg.from.first_name,
+              user.rows[0].phone_number,
+              data.comment,
+              data.payment,
+              data.delivery,
+            ]
+          );
+        }
 
         if (data.promocode !== "") {
           let getPromo = await client.query(
@@ -187,7 +189,6 @@ bot.on("message", async (msg) => {
         `;
 
         if (data.payment == "РауМе") {
-          console.log("payme tanlandi");
           let price = data.order_products.map((p, index) => {
             let num = p.price.replace(/\D/g, "");
             var price = parseInt(num);
@@ -198,8 +199,15 @@ bot.on("message", async (msg) => {
             };
           });
 
+          let deliveryPrice = await client.query(
+            "SELECT delivery_price FROM settings"
+          );
+
           if (data.delivery == "Доставка") {
-            price.push({ label: "Доставка", amount: 19000 * 100 });
+            price.push({
+              label: "Доставка",
+              amount: deliveryPrice.rows[0].delivery_price * 100,
+            });
           }
 
           let send = await bot.sendInvoice(
@@ -207,7 +215,7 @@ bot.on("message", async (msg) => {
             `Оформления заказа `,
             `Descripotion`,
             "Payload",
-            "387026696:LIVE:64f8122708166ba0cd2ac698",
+            "371317599:TEST:1693910757574",
             "UZS",
             [
               {
@@ -217,7 +225,24 @@ bot.on("message", async (msg) => {
             ]
           );
 
-          console.log(send);
+          bot.on("pre_checkout_query", async (query) => {
+            console.log(`[bot] pre checkout`);
+            console.log(query);
+            console.log(query.id);
+            let answerCheckout = await bot.answerPreCheckoutQuery(
+              query.id,
+              true
+            );
+            console.log("answer_precheckout_query", answerCheckout);
+            console.log(data);
+          });
+
+          bot.on("successful_payment", async (msg) => {
+            console.log(`[bot] successful payment`);
+            console.log("Successful Payment", msg);
+
+            await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
+          });
         } else {
           await axios.post(
             `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
@@ -246,20 +271,6 @@ bot.on("message", async (msg) => {
       console.log("error ->", error);
     }
   }
-});
-
-bot.on("pre_checkout_query", async (query) => {
-  console.log(`[bot] pre checkout`);
-  console.log(query);
-  console.log(query.id);
-  let answerCheckout = await bot.answerPreCheckoutQuery(query.id, true);
-  console.log("answer_precheckout_query", answerCheckout);
-});
-
-bot.on("successful_payment", async (msg) => {
-  console.log(`[bot] successful payment`);
-  console.log("Successful Payment", msg);
-  await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
 });
 
 app.use(loginRoute);
