@@ -217,12 +217,7 @@ bot.on("message", async (msg) => {
             "Payload",
             "387026696:LIVE:64f8122708166ba0cd2ac698",
             "UZS",
-            [
-              {
-                label: "test",
-                amount: 5000 * 100,
-              },
-            ]
+            price
           );
 
           bot.on("pre_checkout_query", async (query) => {
