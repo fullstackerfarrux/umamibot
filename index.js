@@ -226,22 +226,48 @@ bot.on("message", async (msg) => {
           );
 
           bot.on("pre_checkout_query", async (query) => {
-            console.log(`[bot] pre checkout`);
-            console.log(query);
-            console.log(query.id);
             let answerCheckout = await bot.answerPreCheckoutQuery(
               query.id,
               true
             );
-            console.log("answer_precheckout_query", answerCheckout);
-            console.log(data);
           });
 
           bot.on("successful_payment", async (msg) => {
-            console.log(`[bot] successful payment`);
-            console.log("Successful Payment", msg);
+            let create = await client.query(
+              "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
+              [
+                data.order_products,
+                `${data.total}`,
+                msg.from.id,
+                msg.from.first_name,
+                user.rows[0].phone_number,
+                data.comment,
+                data.payment,
+                data.delivery,
+              ]
+            );
 
-            await bot.sendMessage(msg.chat.id, "Thank you for your purchase!");
+            await axios.post(
+              `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
+            );
+
+            await axios.post(
+              `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
+            );
+
+            await bot.sendMessage(
+              msg.chat.id,
+              `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
+          Для нового заказа нажмите на кнопку "Отправить контакт"`,
+              {
+                reply_markup: JSON.stringify({
+                  keyboard: [
+                    [{ text: "Отправить контакт", request_contact: true }],
+                  ],
+                  resize_keyboard: true,
+                }),
+              }
+            );
           });
         } else {
           await axios.post(
