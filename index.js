@@ -181,9 +181,9 @@ bot.on("message", async (msg) => {
   <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
   %0A
   <b>Товары в корзине:</b> ${data.order_products.map((i, index) => {
-    let text = ` %0A ${index + 1}. ${i.product_name} (${i.price} UZS  x${
-      i.count
-    })`;
+    let text = ` %0A ${index + 1}. ${i.product_name} (${i.filling}) (${
+      i.price
+    } UZS  x${i.count})`;
     return text;
   })} %0A
         `;
