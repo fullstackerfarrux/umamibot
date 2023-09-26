@@ -46,6 +46,7 @@ bot.on("contact", async (msg) => {
   console.log("find", find);
 
   if (find.rowCount == 0) {
+    console.log(msg.chat.username);
     let username = msg.chat.username !== null ? msg.chat.username : "";
     console.log("username", username);
 
@@ -60,7 +61,7 @@ bot.on("contact", async (msg) => {
     //   ]
     // );
 
-    console.log(create);
+    // console.log(create);
 
     // bot.sendMessage(msg.chat.id, `Пожалуйста отправьте геопозицию`, {
     //   reply_markup: JSON.stringify({
