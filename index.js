@@ -47,7 +47,6 @@ bot.on("contact", async (msg) => {
 
   if (find.rowCount == 0) {
     let username = msg.chat.username !== undefined ? msg.chat.username : "";
-    console.log("username", username);
 
     const create = await client.query(
       "INSERT INTO users(user_id, chat_id, username, firstname, phone_number) values($1, $2, $3, $4, $5)",
@@ -60,16 +59,12 @@ bot.on("contact", async (msg) => {
       ]
     );
 
-    console.log(create);
-
     bot.sendMessage(msg.chat.id, `Пожалуйста отправьте геопозицию`, {
       reply_markup: JSON.stringify({
         keyboard: [[{ text: "Отправить геопозицию", request_location: true }]],
         resize_keyboard: true,
       }),
     });
-
-    console.log("geolocation soradi");
   } else {
     bot.sendMessage(msg.chat.id, `Пожалуйста отправьте геопозицию`, {
       reply_markup: JSON.stringify({
