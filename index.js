@@ -37,10 +37,13 @@ bot.onText(/start/, async (msg) => {
 });
 
 bot.on("contact", async (msg) => {
+  console.log(msg);
   const find = await client.query(
     "select * from users where phone_number = $1",
     [msg.contact.phone_number]
   );
+
+  console.log("find", find);
 
   if (find.rowCount == 0) {
     const create = await client.query(
