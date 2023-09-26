@@ -47,7 +47,7 @@ bot.on("contact", async (msg) => {
 
   if (find.rowCount == 0) {
     console.log(msg.chat.username);
-    let username = msg.chat.username !== null ? msg.chat.username : "";
+    let username = msg.chat.username !== undefined ? msg.chat.username : "";
     console.log("username", username);
 
     // const create = await client.query(
