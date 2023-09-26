@@ -46,29 +46,28 @@ bot.on("contact", async (msg) => {
   console.log("find", find);
 
   if (find.rowCount == 0) {
-    console.log(msg.chat.username);
     let username = msg.chat.username !== undefined ? msg.chat.username : "";
     console.log("username", username);
 
-    // const create = await client.query(
-    //   "INSERT INTO users(user_id, chat_id, username, firstname, phone_number) values($1, $2, $3, $4, $5)",
-    //   [
-    //     msg.from.id,
-    //     msg.chat.id,
-    //     username,
-    //     msg.contact.first_name,
-    //     msg.contact.phone_number,
-    //   ]
-    // );
+    const create = await client.query(
+      "INSERT INTO users(user_id, chat_id, username, firstname, phone_number) values($1, $2, $3, $4, $5)",
+      [
+        msg.from.id,
+        msg.chat.id,
+        username,
+        msg.contact.first_name,
+        msg.contact.phone_number,
+      ]
+    );
 
-    // console.log(create);
+    console.log(create);
 
-    // bot.sendMessage(msg.chat.id, `Пожалуйста отправьте геопозицию`, {
-    //   reply_markup: JSON.stringify({
-    //     keyboard: [[{ text: "Отправить геопозицию", request_location: true }]],
-    //     resize_keyboard: true,
-    //   }),
-    // });
+    bot.sendMessage(msg.chat.id, `Пожалуйста отправьте геопозицию`, {
+      reply_markup: JSON.stringify({
+        keyboard: [[{ text: "Отправить геопозицию", request_location: true }]],
+        resize_keyboard: true,
+      }),
+    });
 
     console.log("geolocation soradi");
   } else {
