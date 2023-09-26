@@ -47,7 +47,7 @@ bot.on("contact", async (msg) => {
 
   if (find.rowCount == 0) {
     let username = msg.chat.username !== null ? msg.chat.username : "";
-
+    console.log("username", username);
     const create = await client.query(
       "INSERT INTO users(user_id, chat_id, username, firstname, phone_number) values($1, $2, $3, $4, $5)",
       [
