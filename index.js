@@ -192,15 +192,34 @@ bot.on("message", async (msg) => {
 
         if (data.payment == "РауМе") {
           console.log("data", data);
-          let price = data.order_products.map((p, index) => {
-            let num = p.price.replace(/\D/g, "");
-            var price = parseInt(num);
 
-            return {
-              label: `${p.product_name}`,
-              amount: `${price * p.count * 0.9 * 100}`,
-            };
-          });
+          const orders = await client.query(
+            "select * from orders where user_id = $1",
+            [msg.from.id]
+          );
+          let price = [];
+
+          if (orders.rowCount < 1) {
+            price = data.order_products.map((p, index) => {
+              let num = p.price.replace(/\D/g, "");
+              var price = parseInt(num);
+
+              return {
+                label: `${p.product_name}`,
+                amount: `${price * p.count * 0.9 * 100}`,
+              };
+            });
+          } else {
+            price = data.order_products.map((p, index) => {
+              let num = p.price.replace(/\D/g, "");
+              var price = parseInt(num);
+
+              return {
+                label: `${p.product_name}`,
+                amount: `${price * p.count * 100}`,
+              };
+            });
+          }
 
           let deliveryPrice = await client.query(
             "SELECT delivery_price FROM settings"
