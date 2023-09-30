@@ -198,7 +198,7 @@ bot.on("message", async (msg) => {
 
             return {
               label: `${p.product_name}`,
-              amount: `${price * p.count * 0.1 * 100}`,
+              amount: `${price * p.count * 0.9 * 100}`,
             };
           });
 
