@@ -213,6 +213,8 @@ bot.on("message", async (msg) => {
             });
           }
 
+          console.log("price", price);
+
           let send = await bot.sendInvoice(
             msg.chat.id,
             `Оформления заказа `,
