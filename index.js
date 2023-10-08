@@ -204,7 +204,7 @@ bot.on("message", async (msg) => {
 
         let dCoords = {
           latitude: user.rows[0].user_location[0],
-          longitude: user.rows[0].user_location[0],
+          longitude: user.rows[0].user_location[1],
         };
 
         let dist = Math.round(calcDistance(sCoords, dCoords));
