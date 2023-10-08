@@ -117,11 +117,12 @@ bot.on("message", async (msg) => {
         );
 
         if (data.payment !== "РауМе") {
+          let totalFromLocale = (data.total + 0).toLocaleString();
           let create = await client.query(
             "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
             [
               data.order_products,
-              `${data.total}`,
+              `${totalFromLocale}`,
               msg.from.id,
               msg.from.first_name,
               user.rows[0].phone_number,
@@ -210,6 +211,7 @@ bot.on("message", async (msg) => {
         let dist = Math.round(calcDistance(sCoords, dCoords));
         let resDeliveryPrice = dist * kmSum + startSum;
 
+        console.log((data?.total + 0).toLocaleString());
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
         const message = `<b>Поступил заказ с Telegram бота:</b> ${
@@ -217,7 +219,7 @@ bot.on("message", async (msg) => {
         } %0A
   <b>Имя клиента:</b> ${msg.from.first_name} %0A
   <b>Номер:</b> ${user.rows[0].phone_number}| @${msg.from.username} %0A
-  <b>Сумма заказа:</b> ${data.total} UZS %0A
+  // <b>Сумма заказа:</b> ${(data.total + 0).toLocaleString()} UZS %0A
   <b>Адрес:</b> ${user.rows[0].user_location[0]}, ${
           user.rows[0].user_location[1]
         } (Локация после сообщения) %0A
@@ -226,6 +228,10 @@ bot.on("message", async (msg) => {
   <b>Оплате (${data.payment}) </b>%0A
   <b>Тип выдачи:</b> ${data.delivery} %0A
   <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
+  %0A
+  <b>Сумма заказа:</b> ${(data?.total - resDeliveryPrice).toLocaleString()} UZS 
+  <b>Доставка:</b> ${resDeliveryPrice?.toLocaleString()} (${dist} km)
+  <b>Итого:</b> ${(data?.total + 0).toLocaleString()} UZS%0A
   %0A
   <b>Товары в корзине:</b> ${data.order_products.map((i, index) => {
     let text = ` %0A ${index + 1}. ${i.product_name} (${i.filling}) (${
@@ -293,11 +299,12 @@ bot.on("message", async (msg) => {
           });
 
           bot.on("successful_payment", async (msg) => {
+            let totalFromLocale = (data.total + 0).toLocaleString();
             let create = await client.query(
               "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation) values($1, $2, $3, $4, $5, $6, $7, $8)",
               [
                 data.order_products,
-                `${data.total}`,
+                `${totalFromLocale}`,
                 msg.from.id,
                 msg.from.first_name,
                 user.rows[0].phone_number,
