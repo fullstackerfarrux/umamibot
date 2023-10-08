@@ -65,6 +65,6 @@ export const getUserLocation = async (req, res) => {
   ]);
 
   return res.status(200).json({
-    user: user.rows[0].user_location,
+    location: user.rows[0].user_location,
   });
 };
