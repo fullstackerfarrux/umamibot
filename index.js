@@ -219,18 +219,23 @@ bot.on("message", async (msg) => {
         } %0A
   <b>Имя клиента:</b> ${msg.from.first_name} %0A
   <b>Номер:</b> ${user.rows[0].phone_number}| @${msg.from.username} %0A
-  // <b>Сумма заказа:</b> ${(data.total + 0).toLocaleString()} UZS %0A
-  <b>Адрес:</b> ${user.rows[0].user_location[0]}, ${
-          user.rows[0].user_location[1]
-        } (Локация после сообщения) %0A
+  <b>Адрес:</b> ${user.rows[0].reverse_location} (Локация после сообщения) %0A
           %0A
   <b>Дистанция:</b> ${dist}km%0A
   <b>Оплате (${data.payment}) </b>%0A
   <b>Тип выдачи:</b> ${data.delivery} %0A
   <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
   %0A
-  <b>Сумма заказа:</b> ${(data?.total - resDeliveryPrice).toLocaleString()} UZS 
-  <b>Доставка:</b> ${resDeliveryPrice?.toLocaleString()} (${dist} km)
+  <b>Сумма заказа:</b> ${
+    data.delivery == "Доставка"
+      ? `${(data?.total - resDeliveryPrice).toLocaleString()}`
+      : `${(data?.total + 0).toLocaleString()}`
+  } UZS %0A
+  <b>Доставка:</b> ${
+    data.delivery == "Доставка"
+      ? ` ${resDeliveryPrice?.toLocaleString()} (${dist} km)`
+      : "Самовызов"
+  }%0A
   <b>Итого:</b> ${(data?.total + 0).toLocaleString()} UZS%0A
   %0A
   <b>Товары в корзине:</b> ${data.order_products.map((i, index) => {
