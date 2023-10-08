@@ -166,6 +166,50 @@ bot.on("message", async (msg) => {
         }
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
+        let startSum = 10000;
+        let kmSum = 2000;
+
+        // Convert from degrees to radians
+        function degreesToRadians(degrees) {
+          var radians = (degrees * Math.PI) / 180;
+          return radians;
+        }
+
+        // Function takes two objects, that contain coordinates to a starting and destination location.
+        function calcDistance(startingCoords, destinationCoords) {
+          let startingLat = degreesToRadians(startingCoords.latitude);
+          let startingLong = degreesToRadians(startingCoords.longitude);
+          let destinationLat = degreesToRadians(destinationCoords.latitude);
+          let destinationLong = degreesToRadians(destinationCoords.longitude);
+
+          // Radius of the Earth in kilometers
+          let radius = 6571;
+
+          // Haversine equation
+          let distanceInKilometers =
+            Math.acos(
+              Math.sin(startingLat) * Math.sin(destinationLat) +
+                Math.cos(startingLat) *
+                  Math.cos(destinationLat) *
+                  Math.cos(startingLong - destinationLong)
+            ) * radius;
+
+          return distanceInKilometers;
+        }
+
+        let sCoords = {
+          latitude: 41.302626,
+          longitude: 69.279813,
+        };
+
+        let dCoords = {
+          latitude: user.rows[0].user_location[0],
+          longitude: user.rows[0].user_location[0],
+        };
+
+        let dist = Math.round(calcDistance(sCoords, dCoords));
+        let resDeliveryPrice = dist * kmSum + startSum;
+
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
         const message = `<b>Поступил заказ с Telegram бота:</b> ${
@@ -178,6 +222,7 @@ bot.on("message", async (msg) => {
           user.rows[0].user_location[1]
         } (Локация после сообщения) %0A
           %0A
+  <b>Дистанция:</b> ${dist}km%0A
   <b>Оплате (${data.payment}) </b>%0A
   <b>Тип выдачи:</b> ${data.delivery} %0A
   <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
@@ -222,50 +267,6 @@ bot.on("message", async (msg) => {
           let deliveryPrice = await client.query(
             "SELECT delivery_price FROM settings"
           );
-
-          let startSum = 10000;
-          let kmSum = 2000;
-
-          // Convert from degrees to radians
-          function degreesToRadians(degrees) {
-            var radians = (degrees * Math.PI) / 180;
-            return radians;
-          }
-
-          // Function takes two objects, that contain coordinates to a starting and destination location.
-          function calcDistance(startingCoords, destinationCoords) {
-            let startingLat = degreesToRadians(startingCoords.latitude);
-            let startingLong = degreesToRadians(startingCoords.longitude);
-            let destinationLat = degreesToRadians(destinationCoords.latitude);
-            let destinationLong = degreesToRadians(destinationCoords.longitude);
-
-            // Radius of the Earth in kilometers
-            let radius = 6571;
-
-            // Haversine equation
-            let distanceInKilometers =
-              Math.acos(
-                Math.sin(startingLat) * Math.sin(destinationLat) +
-                  Math.cos(startingLat) *
-                    Math.cos(destinationLat) *
-                    Math.cos(startingLong - destinationLong)
-              ) * radius;
-
-            return distanceInKilometers;
-          }
-
-          let sCoords = {
-            latitude: 41.302626,
-            longitude: 69.279813,
-          };
-
-          let dCoords = {
-            latitude: user.rows[0].user_location[0],
-            longitude: user.rows[0].user_location[0],
-          };
-
-          let dist = Math.round(calcDistance(sCoords, dCoords));
-          let resDeliveryPrice = dist * kmSum + startSum;
 
           if (data.delivery == "Доставка") {
             price.push({
