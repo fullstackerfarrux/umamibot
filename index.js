@@ -273,6 +273,7 @@ bot.on("message", async (msg) => {
           );
 
           var num = order.rows[0].total.replace(",", "");
+          console.log(num);
           var resTotal = "";
           num.map((p, index) => (resTotal += num[i]));
           console.log("resTotal", +resTotal);
