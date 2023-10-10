@@ -267,15 +267,12 @@ bot.on("message", async (msg) => {
             [msg.from.id]
           );
 
-          console.log("total", order.rows[order.rows.length - 1].total);
-
           var num = order.rows[order.rows.length - 1].total.replaceAll(
             /\D/g,
             ""
           );
-          console.log("num", num);
           var resTotal = parseInt(num);
-          console.log(+resTotal);
+
           bot.sendMessage(msg.chat.id, `Оформления заказа`, {
             reply_markup: {
               inline_keyboard: [
@@ -283,7 +280,7 @@ bot.on("message", async (msg) => {
                   {
                     text: `Оплатить`,
                     url: `https://my.click.uz/services/pay?service_id=${29813}&merchant_id=${22179}&amount=${+resTotal}&transaction_param=${
-                      order.rows[0].order_id
+                      order.rows[order.rows.length - 1].order_id
                     }`,
                   },
                 ],
