@@ -272,7 +272,8 @@ bot.on("message", async (msg) => {
             [msg.from.id]
           );
 
-          var num = order.rows[0].total.replace(/\D/g, "");
+          var num = order.rows[0].total.replaceAll(/\D/g, "");
+          console.log("num", num);
           var resTotal = parseInt(num);
           console.log(+resTotal);
           bot.sendMessage(msg.chat.id, `Оформления заказа`, {
