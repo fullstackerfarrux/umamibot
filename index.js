@@ -272,6 +272,10 @@ bot.on("message", async (msg) => {
             [msg.from.id]
           );
 
+          console.log(order.rows[0]);
+          console.log(order.rows[0].total);
+          console.log(order.rows[0].total * 0);
+
           bot.sendMessage(msg.chat.id, `Оформления заказа`, {
             reply_markup: {
               inline_keyboard: [
