@@ -117,6 +117,8 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
+        console.log("data_payment", data.payment);
+
         if (data.payment !== "Click") {
           let create = await client.query(
             "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation, payment_status) values($1, $2, $3, $4, $5, $6, $7, $8, $9)",
@@ -147,6 +149,8 @@ bot.on("message", async (msg) => {
               false,
             ]
           );
+
+          console.log("Click Created");
         }
 
         if (data.promocode !== "") {
@@ -284,6 +288,8 @@ bot.on("message", async (msg) => {
               resize_keyboard: true,
             },
           });
+
+          console.log("Sending Oformleniya");
 
           //   await axios.post(
           //     `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
