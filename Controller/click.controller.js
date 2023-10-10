@@ -25,6 +25,8 @@ export const clickPrepare = async (req, res) => {
     });
   }
 
+  console.log("prepared");
+
   return res.json({
     click_trans_id,
     merchant_trans_id,
@@ -63,6 +65,8 @@ export const clickComplete = async (req, res) => {
     "UPDATE orders SET payment_status = true WHERE order_id = $1",
     [merchant_trans_id]
   );
+
+  console.log("completed");
 
   return res.json({
     click_trans_id,
