@@ -14,6 +14,8 @@ export const clickPrepare = async (req, res) => {
     sign_string,
   } = req.body;
 
+  console.log("keldi", click_trans_id);
+
   const getOrder = await client.query(
     "SELECT * FROM orders WHERE order_id = $1",
     [merchant_trans_id]
