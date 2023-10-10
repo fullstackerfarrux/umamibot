@@ -71,3 +71,6 @@ create table settings(
     admin_password VARCHAR NOT NULL,
     delivery_price INT
 );
+
+
+ALTER TABLE orders ADD COLUMN payment_status BOOLEAN
