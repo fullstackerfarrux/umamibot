@@ -117,7 +117,7 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        if (data.payment !== "РауМе") {
+        if (data.payment !== "Click") {
           let create = await client.query(
             "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation, payment_status) values($1, $2, $3, $4, $5, $6, $7, $8, $9)",
             [
@@ -262,7 +262,7 @@ bot.on("message", async (msg) => {
   })} %0A
         `;
 
-        if (data.payment == "РауМе") {
+        if (data.payment == "Click") {
           const order = await client.query(
             "SELECT * FROM orders WHERE user_id = $1",
             [msg.from.id]
