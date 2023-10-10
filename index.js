@@ -267,10 +267,12 @@ bot.on("message", async (msg) => {
             [msg.from.id]
           );
 
-          console.log("order", order.rows.length);
-          console.log("total", order.rows[order.rows.length].total);
+          console.log("total", order.rows[order.rows.length - 1].total);
 
-          var num = order.rows[order.rows.length].total.replaceAll(/\D/g, "");
+          var num = order.rows[order.rows.length - 1].total.replaceAll(
+            /\D/g,
+            ""
+          );
           console.log("num", num);
           var resTotal = parseInt(num);
           console.log(+resTotal);
