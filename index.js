@@ -233,7 +233,9 @@ bot.on("message", async (msg) => {
           getCount.rows[0].max
         } %0A
   <b>Имя клиента:</b> ${msg.from.first_name} %0A
-  <b>Номер:</b> ${user.rows[0].phone_number}| @${msg.from.username} %0A
+  <b>Номер:</b> ${user.rows[0].phone_number} ${
+          msg.from.username !== undefined ? `| @${msg.from.username}` : ""
+        }%0A
   <b>Адрес:</b> ${user.rows[0].reverse_location} (Локация после сообщения) %0A
           %0A
   <b>Дистанция:</b> ${dist}km%0A
