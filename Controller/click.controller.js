@@ -14,7 +14,7 @@ export const clickPrepare = async (req, res) => {
   //   sign_string,
   // } = req.body;
 
-  console.log(req);
+  console.log(req.body);
 
   // console.log("keldi", click_trans_id);
 
