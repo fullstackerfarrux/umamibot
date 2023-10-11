@@ -14,30 +14,30 @@ export const clickPrepare = async (req, res) => {
   //   sign_string,
   // } = req.body;
 
-  console.log(req.body);
+  console.log(req);
 
-  console.log("keldi", click_trans_id);
+  // console.log("keldi", click_trans_id);
 
-  const getOrder = await client.query(
-    "SELECT * FROM orders WHERE order_id = $1",
-    [merchant_trans_id]
-  );
+  // const getOrder = await client.query(
+  //   "SELECT * FROM orders WHERE order_id = $1",
+  //   [merchant_trans_id]
+  // );
 
-  if (getOrder.rows.length <= 0) {
-    return res.status(400).json({
-      error: 1,
-    });
-  }
+  // if (getOrder.rows.length <= 0) {
+  //   return res.status(400).json({
+  //     error: 1,
+  //   });
+  // }
 
-  console.log("prepared");
+  // console.log("prepared");
 
-  return res.json({
-    click_trans_id,
-    merchant_trans_id,
-    merchant_prepare_id: 123,
-    error: 0,
-    error_note: "",
-  });
+  // return res.json({
+  //   click_trans_id,
+  //   merchant_trans_id,
+  //   merchant_prepare_id: 123,
+  //   error: 0,
+  //   error_note: "",
+  // });
 };
 
 export const clickComplete = async (req, res) => {
