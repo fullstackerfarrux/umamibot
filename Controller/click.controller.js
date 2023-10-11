@@ -31,13 +31,13 @@ export const clickPrepare = async (req, res) => {
 
   // console.log("prepared");
 
-  // return res.json({
-  //   click_trans_id,
-  //   merchant_trans_id,
-  //   merchant_prepare_id: 123,
-  //   error: 0,
-  //   error_note: "",
-  // });
+  return res.json({
+    // click_trans_id,
+    // merchant_trans_id,
+    merchant_prepare_id: 123,
+    error: 0,
+    error_note: "",
+  });
 };
 
 export const clickComplete = async (req, res) => {
