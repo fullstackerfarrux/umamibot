@@ -62,7 +62,7 @@ export const clickComplete = async (req, res) => {
   );
 
   if (getOrder.rows.length <= 0) {
-    return res.status(400).json({
+    return res.json({
       error: -5,
       error_note: "",
     });
