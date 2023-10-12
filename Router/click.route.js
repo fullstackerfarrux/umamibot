@@ -6,6 +6,6 @@ const router = Router();
 const middle = express.urlencoded({ extended: true });
 
 router.post("/click/prepare", middle, clickPrepare);
-// router.post("/click/complete", clickComplete);
+router.post("/click/complete", middle, clickComplete);
 
 export default router;
