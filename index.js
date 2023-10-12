@@ -16,13 +16,6 @@ import clickRoute from "./Router/click.route.js";
 
 const app = express();
 app.use(cors());
-// app.use(
-//   express.urlencoded({
-//     extended: false,
-//     limit: 10000,
-//     parameterLimit: 2,
-//   })
-// );
 app.use(express.json());
 dotenv.config();
 

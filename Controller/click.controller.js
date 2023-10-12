@@ -26,6 +26,7 @@ export const clickPrepare = async (req, res) => {
   if (getOrder.rows.length <= 0) {
     return res.status(400).json({
       error: 1,
+      error_note: "",
     });
   }
 
