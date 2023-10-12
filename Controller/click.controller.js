@@ -131,7 +131,8 @@ export const clickComplete = async (req, res) => {
 
   let dist = Math.round(calcDistance(sCoords, dCoords));
   let resDeliveryPrice = dist * kmSum + startSum;
-  console.log("get length", getCount.rows[0].products.length);
+  console.log(getCount.rows[0].products);
+  console.log("get length", getCount.rows[0].products);
   console.log("product", getCount.rows[0].products[0]);
 
   let products = [];
