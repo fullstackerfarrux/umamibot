@@ -1,6 +1,6 @@
 import express from "express";
 import { Router } from "express";
-import { clickPrepare } from "../Controller/click.controller.js";
+import { clickComplete, clickPrepare } from "../Controller/click.controller.js";
 const router = Router();
 
 const middle = express.urlencoded({ extended: true });
