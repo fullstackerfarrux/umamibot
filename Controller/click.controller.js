@@ -14,11 +14,6 @@ export const clickPrepare = async (req, res) => {
     sign_string,
   } = req.body;
 
-  const formData = req.body;
-
-  // Use formData as needed
-  res.json(formData);
-
   console.log("keldi", click_trans_id);
 
   const getOrder = await client.query(
