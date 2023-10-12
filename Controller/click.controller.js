@@ -82,11 +82,6 @@ export const clickComplete = async (req, res) => {
     });
   }
 
-  const updateOrder = await client.query(
-    "UPDATE orders SET payment_status = true WHERE order_id = $1",
-    [merchant_trans_id]
-  );
-
   const token = process.env.TelegramApi;
   const chat_id = process.env.CHAT_ID;
   let user = await client.query("SELECT * FROM users where user_id = $1", [
@@ -138,6 +133,8 @@ export const clickComplete = async (req, res) => {
   let resDeliveryPrice = dist * kmSum + startSum;
 
   const products = JSON.parse(getOrder.rows[0].products);
+  console.log("row malumot", getOrder.rows[0].products);
+  console.log("products", products);
   const message = `<b>Поступил заказ с Telegram бота:</b> ${
     getCount.rows[0].max
   } %0A
@@ -173,6 +170,11 @@ export const clickComplete = async (req, res) => {
     return text;
   })} %0A
         `;
+
+  const updateOrder = await client.query(
+    "UPDATE orders SET payment_status = true WHERE order_id = $1",
+    [merchant_trans_id]
+  );
 
   await axios.post(
     `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
