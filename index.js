@@ -281,7 +281,7 @@ bot.on("message", async (msg) => {
                 [
                   {
                     text: `Оплатить`,
-                    url: `https://my.click.uz/services/pay?service_id=${29813}&merchant_id=${22179}&amount=${+resTotal}&transaction_param=${
+                    url: `https://my.click.uz/services/pay?service_id=${29813}&merchant_id=${22179}&amount=${1000}&transaction_param=${
                       order.rows[order.rows.length - 1].order_id
                     }`,
                   },

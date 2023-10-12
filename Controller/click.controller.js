@@ -23,6 +23,8 @@ export const clickPrepare = async (req, res) => {
     [merchant_trans_id]
   );
 
+  console.log(getOrder.rows);
+
   if (getOrder.rows.length <= 0) {
     return res.status(400).json({
       error: 1,
