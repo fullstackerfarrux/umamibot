@@ -1,7 +1,6 @@
 import axios from "axios";
 import client from "../db/config.js";
 import TelegramBot from "node-telegram-bot-api";
-const bot = new TelegramBot(process.env.TelegramApi, { polling: false });
 
 export const clickPrepare = async (req, res) => {
   let {
@@ -53,6 +52,7 @@ export const clickPrepare = async (req, res) => {
 };
 
 export const clickComplete = async (req, res) => {
+  const bot = new TelegramBot(process.env.TelegramApi);
   let {
     click_trans_id,
     service_id,
