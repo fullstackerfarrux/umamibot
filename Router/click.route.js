@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { clickComplete, clickPrepare } from "../Controller/click.controller.js";
+import { clickPrepare } from "../Controller/click.controller.js";
 const router = Router();
 
 router.post("/click/prepare", clickPrepare);
