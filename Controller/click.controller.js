@@ -1,4 +1,6 @@
+import axios from "axios";
 import client from "../db/config.js";
+const bot = new TelegramBot(process.env.TelegramApi, { polling: false });
 
 export const clickPrepare = async (req, res) => {
   let {
@@ -131,9 +133,6 @@ export const clickComplete = async (req, res) => {
 
   let dist = Math.round(calcDistance(sCoords, dCoords));
   let resDeliveryPrice = dist * kmSum + startSum;
-  console.log(getOrder.rows[0].products);
-  console.log("get length", getOrder.rows[0].products);
-  console.log("product", getOrder.rows[0].products[0]);
 
   let products = [];
   for (let p = 0; p < getOrder.rows[0].products.length; p++) {
@@ -191,7 +190,7 @@ export const clickComplete = async (req, res) => {
   );
 
   await bot.sendMessage(
-    msg.chat.id,
+    user.rows[0].chat_id,
     `Ваш заказ успешно оплачено! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
           Для нового заказа нажмите на кнопку "Отправить контакт"`,
     {
