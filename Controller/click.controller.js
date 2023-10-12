@@ -75,6 +75,13 @@ export const clickComplete = async (req, res) => {
     });
   }
 
+  if (getOrder.rows[0].payment_status == true) {
+    return res.json({
+      error: -4,
+      error_note: "",
+    });
+  }
+
   const updateOrder = await client.query(
     "UPDATE orders SET payment_status = true WHERE order_id = $1",
     [merchant_trans_id]
@@ -130,6 +137,7 @@ export const clickComplete = async (req, res) => {
   let dist = Math.round(calcDistance(sCoords, dCoords));
   let resDeliveryPrice = dist * kmSum + startSum;
 
+  const products = JSON.parse(getOrder.rows[0].products);
   const message = `<b>Поступил заказ с Telegram бота:</b> ${
     getCount.rows[0].max
   } %0A
@@ -158,7 +166,7 @@ export const clickComplete = async (req, res) => {
   }%0A
   <b>Итого:</b> ${(getCount.rows[0].total + 0).toLocaleString()} UZS%0A
   %0A
-  <b>Товары в корзине:</b> ${getCount.rows[0].products.map((i, index) => {
+  <b>Товары в корзине:</b> ${products.map((i, index) => {
     let text = ` %0A ${index + 1}. ${i.product_name} (${i.filling}) (${
       i.price
     } UZS  x${i.count})`;
