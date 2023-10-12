@@ -33,6 +33,13 @@ export const clickPrepare = async (req, res) => {
     });
   }
 
+  if (getOrder.rows[0].payment_status == true) {
+    return res.json({
+      error: -4,
+      error_note: "",
+    });
+  }
+
   return res.json({
     click_trans_id,
     merchant_trans_id,
