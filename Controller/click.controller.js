@@ -26,12 +26,12 @@ export const clickPrepare = async (req, res) => {
     });
   }
 
-  if (getOrder.rows[0].total !== amount) {
-    return res.json({
-      error: -2,
-      error_note: "",
-    });
-  }
+  // if (getOrder.rows[0].total !== amount) {
+  //   return res.json({
+  //     error: -2,
+  //     error_note: "",
+  //   });
+  // }
 
   if (getOrder.rows[0].payment_status == true) {
     return res.json({
