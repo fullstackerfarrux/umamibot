@@ -132,9 +132,8 @@ export const clickComplete = async (req, res) => {
   let dist = Math.round(calcDistance(sCoords, dCoords));
   let resDeliveryPrice = dist * kmSum + startSum;
 
-  const products = JSON.parse(getOrder.rows[0].products);
-  console.log("row malumot", getOrder.rows[0].products);
-  console.log("products", products);
+  const products = [JSON.parse(getOrder.rows[0].products)];
+  console.log(getOrder.rows[0].products);
   const message = `<b>Поступил заказ с Telegram бота:</b> ${
     getCount.rows[0].max
   } %0A
