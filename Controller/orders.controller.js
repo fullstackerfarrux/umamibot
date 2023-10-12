@@ -19,6 +19,7 @@ export const getOrders = async (req, res) => {
       products: category.rows[i].products,
       comment: category.rows[i].comment,
       payment_type: category.rows[i].payment_type,
+      payment_status: category.rows[i].payment_status,
       exportation: category.rows[i].exportation,
       created_at: category.rows[i].created_at,
       location:

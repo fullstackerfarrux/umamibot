@@ -281,7 +281,7 @@ bot.on("message", async (msg) => {
                 [
                   {
                     text: `Оплатить`,
-                    url: `https://my.click.uz/services/pay?service_id=${29813}&merchant_id=${22179}&amount=${1000}&transaction_param=${
+                    url: `https://my.click.uz/services/pay?service_id=${29813}&merchant_id=${22179}&amount=${+resTotal}&transaction_param=${
                       order.rows[order.rows.length - 1].order_id
                     }`,
                   },
@@ -290,28 +290,6 @@ bot.on("message", async (msg) => {
               resize_keyboard: true,
             },
           });
-
-          //   await axios.post(
-          //     `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
-          //   );
-
-          //   await axios.post(
-          //     `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
-          //   );
-
-          //   await bot.sendMessage(
-          //     msg.chat.id,
-          //     `Ваш заказ принят! Cкоро оператор свяжется с вами! Спасибо за доверие 😊
-          // Для нового заказа нажмите на кнопку "Отправить контакт"`,
-          //     {
-          //       reply_markup: JSON.stringify({
-          //         keyboard: [
-          //           [{ text: "Отправить контакт", request_contact: true }],
-          //         ],
-          //         resize_keyboard: true,
-          //       }),
-          //     }
-          //   );
         } else {
           await axios.post(
             `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
