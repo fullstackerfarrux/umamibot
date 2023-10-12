@@ -229,6 +229,7 @@ bot.on("message", async (msg) => {
 
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
+        console.log("indexdan", data.order_products);
         const message = `<b>Поступил заказ с Telegram бота:</b> ${
           getCount.rows[0].max
         } %0A
