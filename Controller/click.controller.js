@@ -162,15 +162,15 @@ export const clickComplete = async (req, res) => {
   %0A
   <b>Сумма заказа:</b> ${
     getOrder.rows[0].exportation == "Доставка"
-      ? `${(getOrder.rows[0].total - resDeliveryPrice).toLocaleString()}`
-      : `${(getOrder.rows[0].total + 0).toLocaleString()}`
+      ? `${(+getOrder.rows[0].total - resDeliveryPrice).toLocaleString()}`
+      : `${(+getOrder.rows[0].total + 0).toLocaleString()}`
   } UZS %0A
   <b>Доставка:</b> ${
     getOrder.rows[0].exportation == "Доставка"
       ? ` ${resDeliveryPrice?.toLocaleString()} (${dist} km)`
       : "Самовызов"
   }%0A
-  <b>Итого:</b> ${(getOrder.rows[0].total + 0).toLocaleString()} UZS%0A
+  <b>Итого:</b> ${(+getOrder.rows[0].total + 0).toLocaleString()} UZS%0A
   %0A
   <b>Товары в корзине:</b> ${products.map((i, index) => {
     let text = ` %0A ${index + 1}. ${i.product_name} (${i.filling}) (${
