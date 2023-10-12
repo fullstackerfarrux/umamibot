@@ -131,13 +131,13 @@ export const clickComplete = async (req, res) => {
 
   let dist = Math.round(calcDistance(sCoords, dCoords));
   let resDeliveryPrice = dist * kmSum + startSum;
-  console.log(getCount.rows[0].products);
-  console.log("get length", getCount.rows[0].products);
-  console.log("product", getCount.rows[0].products[0]);
+  console.log(getOrder.rows[0].products);
+  console.log("get length", getOrder.rows[0].products);
+  console.log("product", getOrder.rows[0].products[0]);
 
   let products = [];
-  for (let p = 0; p < getCount.rows[0].products.length; p++) {
-    let productToJson = JSON.parse(getCount.rows[0].products[p]);
+  for (let p = 0; p < getOrder.rows[0].products.length; p++) {
+    let productToJson = JSON.parse(getOrder.rows[0].products[p]);
     products.push(productToJson);
   }
 
@@ -151,23 +151,23 @@ export const clickComplete = async (req, res) => {
   <b>Адрес:</b> ${user.rows[0].reverse_location} (Локация после сообщения) %0A
           %0A
   <b>Дистанция:</b> ${dist}km%0A
-  <b>Оплате (${getCount.rows[0].payment_type}) </b>%0A
-  <b>Тип выдачи:</b> ${getCount.rows[0].exportation} %0A
+  <b>Оплате (${getOrder.rows[0].payment_type}) </b>%0A
+  <b>Тип выдачи:</b> ${getOrder.rows[0].exportation} %0A
   <b>Комментарий: ${
-    getCount.rows[0].comment !== "" ? `${getCount.rows[0].comment}` : "Нет"
+    getOrder.rows[0].comment !== "" ? `${getOrder.rows[0].comment}` : "Нет"
   }</b> %0A
   %0A
   <b>Сумма заказа:</b> ${
-    getCount.rows[0].exportation == "Доставка"
-      ? `${(getCount.rows[0].total - resDeliveryPrice).toLocaleString()}`
-      : `${(getCount.rows[0].total + 0).toLocaleString()}`
+    getOrder.rows[0].exportation == "Доставка"
+      ? `${(getOrder.rows[0].total - resDeliveryPrice).toLocaleString()}`
+      : `${(getOrder.rows[0].total + 0).toLocaleString()}`
   } UZS %0A
   <b>Доставка:</b> ${
-    getCount.rows[0].exportation == "Доставка"
+    getOrder.rows[0].exportation == "Доставка"
       ? ` ${resDeliveryPrice?.toLocaleString()} (${dist} km)`
       : "Самовызов"
   }%0A
-  <b>Итого:</b> ${(getCount.rows[0].total + 0).toLocaleString()} UZS%0A
+  <b>Итого:</b> ${(getOrder.rows[0].total + 0).toLocaleString()} UZS%0A
   %0A
   <b>Товары в корзине:</b> ${products.map((i, index) => {
     let text = ` %0A ${index + 1}. ${i.product_name} (${i.filling}) (${
