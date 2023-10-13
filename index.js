@@ -95,8 +95,8 @@ bot.on("location", async (msg) => {
   bot.sendMessage(
     msg.chat.id,
     ` Для выбора товара нажмите на кнопку "Меню"
-     Ваш текущий адрес: ${locationString}
-     Штобы изменить адрес нажмите на кнопку "Изменить геопозицию"`,
+  Ваш текущий адрес: ${locationString}
+  Для изменения адреса нажмите на кнопку "Изменить геопозицию"`,
     {
       reply_markup: JSON.stringify({
         keyboard: [
