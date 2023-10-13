@@ -94,7 +94,7 @@ bot.on("location", async (msg) => {
 
   bot.sendMessage(
     msg.chat.id,
-    `🛒 Для выбора товара нажмите на кнопку "Меню"
+    `🛒 <b> Для выбора товара нажмите на кнопку "Меню"</b>
 
   📍 Ваш текущий адрес: ${locationString}
 
