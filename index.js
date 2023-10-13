@@ -112,7 +112,7 @@ bot.on("location", async (msg) => {
         ],
         resize_keyboard: true,
       }),
-      parse_mode: "html&text",
+      parse_mode: "HTML",
     }
   );
 });
