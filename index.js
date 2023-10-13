@@ -92,19 +92,24 @@ bot.on("location", async (msg) => {
     [location, locationString, msg.from.id]
   );
 
-  bot.sendMessage(msg.chat.id, ` Для выбора товара нажмите на кнопку "Меню"`, {
-    reply_markup: JSON.stringify({
-      keyboard: [
-        [
-          {
-            text: `Меню`,
-            web_app: { url: `https://umamisushi.vercel.app/${msg.from.id}` },
-          },
+  bot.sendMessage(
+    msg.chat.id,
+    ` Для выбора товара нажмите на кнопку "Меню" %0A Ваш текущий адрес: ${locationString}%0A Штобы изменить адрес нажмите на кнопку "Изменить геопозицию"`,
+    {
+      reply_markup: JSON.stringify({
+        keyboard: [
+          [
+            {
+              text: `Меню`,
+              web_app: { url: `https://umamisushi.vercel.app/${msg.from.id}` },
+            },
+          ],
+          [{ text: "Изменить геопозицию", request_location: true }],
         ],
-      ],
-      resize_keyboard: true,
-    }),
-  });
+        resize_keyboard: true,
+      }),
+    }
+  );
 });
 
 bot.on("message", async (msg) => {
@@ -229,7 +234,6 @@ bot.on("message", async (msg) => {
 
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
-        console.log("indexdan", data.order_products);
         const message = `<b>Поступил заказ с Telegram бота:</b> ${
           getCount.rows[0].max
         } %0A
