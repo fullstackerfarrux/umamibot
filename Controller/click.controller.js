@@ -172,7 +172,10 @@ export const clickComplete = async (req, res) => {
   <b>Товары в корзине:</b> ${products.map((i, index) => {
     let text = ` %0A ${index + 1}. ${i.product_name} ${
       i.filling !== "" ? `(${i.filling})` : ``
-    } (${i.price} UZS  x${i.count})`;
+    } %0A 
+    ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
+      i.price.replace(/\D/g, "") * i.count
+    }`;
     return text;
   })} %0A
         `;
