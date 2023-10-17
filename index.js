@@ -277,7 +277,7 @@ bot.on("message", async (msg) => {
   <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
   <b>Промкод: ${
     data.promocode !== ""
-      ? `${data.promocode} - ${percentagePromo}`
+      ? `${data.promocode} - ${percentagePromo}%`
       : "Не использован"
   }</b> %0A
   %0A
