@@ -61,7 +61,7 @@ create table promocode(
     isActive BOOLEAN,
     usedCount INT DEFAULT 0,
     created_at VARCHAR NOT NULL,
-    users_id VARCHAR[]
+    orders_id VARCHAR[]
 );
 
 drop table if exists settings;
@@ -73,4 +73,4 @@ create table settings(
 );
 
 
-ALTER TABLE orders ADD COLUMN payment_status BOOLEAN
+ALTER TABLE promocode RENAME COLUMN users_id TO orders_id;

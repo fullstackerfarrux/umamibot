@@ -70,6 +70,20 @@ export const clickComplete = async (req, res) => {
     "SELECT * FROM orders WHERE order_id = $1",
     [merchant_trans_id]
   );
+  let getPromo = await client.query(
+    "SELECT * FROM promocode WHERE isActive = true AND usedCount > 0"
+  );
+  let resPromoSale = "";
+  let resPromoTitle = "";
+
+  for (let i = 0; i > getPromo.rows?.length; i++) {
+    for (let j = 0; i > getPromo.rows[i].orders_id; i++) {
+      if (getPromo.rows[i].orders_id[j] == merchant_trans_id) {
+        resPromoSale = `${getPromo.rows[i].sale}`;
+        resPromoTitle = `${getPromo.rows[i].title}`;
+      }
+    }
+  }
 
   if (getOrder.rows.length <= 0) {
     return res.json({
@@ -156,6 +170,11 @@ export const clickComplete = async (req, res) => {
   <b>Комментарий: ${
     getOrder.rows[0].comment !== "" ? `${getOrder.rows[0].comment}` : "Нет"
   }</b> %0A
+   <b>Промкод: ${
+     resPromoTitle !== ""
+       ? `${resPromoTitle} - ${resPromoSale}`
+       : "Не использован"
+   }</b> %0A
   %0A
   <b>Сумма заказа:</b> ${
     getOrder.rows[0].exportation == "Доставка"

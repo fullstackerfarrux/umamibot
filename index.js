@@ -159,29 +159,35 @@ bot.on("message", async (msg) => {
           );
         }
 
+        let percentagePromo = "";
         if (data.promocode !== "") {
           let getPromo = await client.query(
             "SELECT * FROM promocode WHERE title = $1 AND isActive = true",
             [data.promocode]
           );
+          const order = await client.query(
+            "SELECT * FROM orders WHERE user_id = $1",
+            [msg.from.id]
+          );
 
-          let users_id = [];
+          percentagePromo = `${promocode.rows[0].sale}`;
+          let orders_id = [];
           let usedCount = getPromo.rows[0]?.usedcount + 1;
           if (
-            getPromo.rows[0].users_id !== undefined &&
-            getPromo.rows[0].users_id?.length > 0
+            getPromo.rows[0].orders_id !== undefined &&
+            getPromo.rows[0].orders_id?.length > 0
           ) {
-            for (let i = 0; i < getPromo.rows[0].users_id.length; i++) {
-              users_id.push(getPromo.rows[0].users_id[i]);
+            for (let i = 0; i < getPromo.rows[0].orders_id.length; i++) {
+              orders_id.push(getPromo.rows[0].orders_id[i]);
             }
-            users_id.push(msg.from.id);
+            orders_id.push(order.rows[order.rows.length - 1].order_id);
           } else {
-            users_id.push(msg.from.id);
+            orders_id.push(order.rows[order.rows.length - 1].order_id);
           }
 
           let updatePromo = await client.query(
-            "UPDATE promocode SET usedCount = $1, users_id = $2 WHERE id = $3",
-            [usedCount, users_id, getPromo.rows[0].id]
+            "UPDATE promocode SET usedCount = $1, orders_id = $2 WHERE id = $3",
+            [usedCount, orders_id, getPromo.rows[0].id]
           );
 
           if (getPromo.rows[0].usage_limit == getPromo.rows[0].usedcount + 1) {
@@ -252,6 +258,11 @@ bot.on("message", async (msg) => {
   <b>Оплате (${data.payment}) </b>%0A
   <b>Тип выдачи:</b> ${data.delivery} %0A
   <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
+  <b>Промкод: ${
+    data.promocode !== ""
+      ? `${data.promocode} - ${percentagePromo}`
+      : "Не использован"
+  }</b> %0A
   %0A
   <b>Сумма заказа:</b> ${
     data.delivery == "Доставка"
@@ -265,10 +276,13 @@ bot.on("message", async (msg) => {
   }%0A
   <b>Итого:</b> ${(data?.total + 0).toLocaleString()} UZS%0A
   %0A
-  <b>Товары в корзине:</b> ${data.order_products.map((i, index) => {
-    let text = ` %0A ${index + 1}. ${i.product_name} (${i.filling}) (${
-      i.price
-    } UZS  x${i.count})`;
+  <b>Товары в корзине:</b> ${products.map((i, index) => {
+    let text = ` %0A ${index + 1}. ${i.product_name} ${
+      i.filling !== "" ? `(${i.filling})` : ``
+    } %0A 
+    ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
+      i.price.replace(/\D/g, "") * i.count
+    }`;
     return text;
   })} %0A
         `;
