@@ -275,7 +275,7 @@ bot.on("message", async (msg) => {
   <b>Оплате (${data.payment}) </b>%0A
   <b>Тип выдачи:</b> ${data.delivery} %0A
   <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
-  <b>Промкод: ${
+  <b>Промокод: ${
     data.promocode !== ""
       ? `${data.promocode} - ${percentagePromo}%`
       : "Не использован"
