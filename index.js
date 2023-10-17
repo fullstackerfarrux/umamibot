@@ -243,9 +243,20 @@ bot.on("message", async (msg) => {
         let dist = Math.round(calcDistance(sCoords, dCoords));
         let resDeliveryPrice = dist * kmSum + startSum;
 
+        const order = await client.query(
+          "SELECT * FROM orders WHERE user_id = $1",
+          [msg.from.id]
+        );
+
         let products = [];
-        for (let p = 0; p < data.products.length; p++) {
-          let productToJson = JSON.parse(data.products[p]);
+        for (
+          let p = 0;
+          p < order.rows[order.rows.length - 1].products.length;
+          p++
+        ) {
+          let productToJson = JSON.parse(
+            order.rows[order.rows.length - 1].products[p]
+          );
           products.push(productToJson);
         }
 
