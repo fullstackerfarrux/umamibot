@@ -243,6 +243,12 @@ bot.on("message", async (msg) => {
         let dist = Math.round(calcDistance(sCoords, dCoords));
         let resDeliveryPrice = dist * kmSum + startSum;
 
+        let products = [];
+        for (let p = 0; p < data.products.length; p++) {
+          let productToJson = JSON.parse(data.products[p]);
+          products.push(productToJson);
+        }
+
         const token = process.env.TelegramApi;
         const chat_id = process.env.CHAT_ID;
         const message = `<b>Поступил заказ с Telegram бота:</b> ${
