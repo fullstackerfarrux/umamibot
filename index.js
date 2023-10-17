@@ -170,7 +170,7 @@ bot.on("message", async (msg) => {
             [msg.from.id]
           );
 
-          percentagePromo = `${promocode.rows[0].sale}`;
+          percentagePromo = `${getPromo.rows[0].sale}`;
           let orders_id = [];
           let usedCount = getPromo.rows[0]?.usedcount + 1;
           if (
