@@ -78,6 +78,7 @@ export const clickComplete = async (req, res) => {
 
   for (let i = 0; i > getPromo.rows?.length; i++) {
     for (let j = 0; i > getPromo.rows[i].orders_id; i++) {
+      console.log("all promo", getPromo.rows[i]);
       if (getPromo.rows[i].orders_id[j] == merchant_trans_id) {
         resPromoSale = `${getPromo.rows[i].sale}`;
         resPromoTitle = `${getPromo.rows[i].title}`;
