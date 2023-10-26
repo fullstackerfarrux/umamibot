@@ -155,6 +155,8 @@ export const clickComplete = async (req, res) => {
     products.push(productToJson);
   }
 
+  console.log("respromotitle", resPromoTitle);
+
   const message = `<b>Поступил заказ с Telegram бота:</b> ${
     getCount.rows[0].max
   } %0A
