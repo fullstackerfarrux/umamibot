@@ -47,3 +47,19 @@ export const getOneOrder = async (req, res) => {
     orders: orders.rows,
   });
 };
+
+
+export const getOrderById = async (req, res) => {
+  let { order_id } = req.body;
+
+  const orders = await client.query("select * from orders where order_id = $1", [
+    order_id,
+  ]);
+
+  return res.status(200).json({
+    orders: orders.rows,
+  });
+};
+
+
+
