@@ -127,7 +127,7 @@ bot.on("message", async (msg) => {
           [msg.from.id]
         );
 
-        if (data.payment !== "Click") {
+        if (data.payment !== "Click" && data.payment !== "Payme") {
           let create = await client.query(
             "INSERT INTO orders(products, total, user_id, username, phone_number, comment, payment_type, exportation, payment_status) values($1, $2, $3, $4, $5, $6, $7, $8, $9)",
             [
@@ -325,6 +325,31 @@ bot.on("message", async (msg) => {
                     url: `https://my.click.uz/services/pay?service_id=${29813}&merchant_id=${22179}&amount=${+resTotal}&transaction_param=${
                       order.rows[order.rows.length - 1].order_id
                     }`,
+                  },
+                ],
+              ],
+              resize_keyboard: true,
+            },
+          });
+        } else if (data.payment == "Payme") {
+          const order = await client.query(
+            "SELECT * FROM orders WHERE user_id = $1",
+            [msg.from.id]
+          );
+
+          var num = order.rows[order.rows.length - 1].total.replaceAll(
+            /\D/g,
+            ""
+          );
+          var resTotal = parseInt(num);
+
+          bot.sendMessage(msg.chat.id, `Оформления заказа`, {
+            reply_markup: {
+              inline_keyboard: [
+                [
+                  {
+                    text: `Оплатить`,
+                    url: ``,
                   },
                 ],
               ],
