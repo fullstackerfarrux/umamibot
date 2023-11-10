@@ -13,6 +13,7 @@ import bannerRoute from "./Router/banner.route.js";
 import promoRoute from "./Router/promocode.route.js";
 import newsletterRoute from "./Router/newsletter.route.js";
 import clickRoute from "./Router/click.route.js";
+import paymeRoute from "./Router/payme.route.js";
 
 const app = express();
 app.use(cors());
@@ -395,6 +396,7 @@ app.use(bannerRoute);
 app.use(promoRoute);
 app.use(newsletterRoute);
 app.use(clickRoute);
+app.use(paymeRoute);
 
 app.listen(port, () => {
   console.log(port);
