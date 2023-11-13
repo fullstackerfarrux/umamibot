@@ -344,13 +344,33 @@ bot.on("message", async (msg) => {
           );
           var resTotal = parseInt(num);
 
+          // prepare payme request
+          const apiUrl = 'https://checkout.paycom.uz/api';
+          const requestBody = {
+            "jsonrpc": "2.0",
+            "id": 1111111,
+            "method": "receipts.create",
+            "params": {
+                "amount": resTotal * 100,
+                "account": {
+                    "order_id": order.rows[order.rows.length - 1].order_id
+                }
+            }
+          }
+          const headers = {
+            'X-Auth': `${process.env.PAYME_CASH_ID}:${process.env.PAYME_KEY}`,
+            'Content-Type': 'application/json',
+          } 
+          // send request to payme
+          const response = await axios.post(apiUrl, requestBody, { headers });
+          const transID = response.data.result.receipt._id
           bot.sendMessage(msg.chat.id, `Оформления заказа`, {
             reply_markup: {
               inline_keyboard: [
                 [
                   {
                     text: `Оплатить`,
-                    url: ``,
+                    url: `https://payme.uz/checkout/${transID}`,
                   },
                 ],
               ],
