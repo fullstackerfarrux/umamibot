@@ -10,23 +10,30 @@ export const newsletter = async (req, res) => {
   const getUser = await client.query("SELECT chat_id FROM users");
 
   for (let i = 0; i < getUser.rows.length; i++) {
+    reply_markup =  JSON.stringify({
+      keyboard: [[{ text: "Отправить геопозицию", request_location: true }]],
+      resize_keyboard: true,
+    })
     if (images == "" && videos == "") {
-      bot.sendMessage(getUser.rows[i].chat_id, text);
+      bot.sendMessage(getUser.rows[i].chat_id, text, {reply_markup: reply_markup,});
     } else if (videos == "") {
       bot.sendPhoto(getUser.rows[i].chat_id, `${images[0]}`, {
         caption: `${text}`,
         parse_mode: "HTML",
+        reply_markup: reply_markup,
       });
     } else if (images == "") {
       bot.sendVideo(getUser.rows[i].chat_id, `${videos[0]}`, {
         caption: `${text}`,
         parse_mode: "HTML",
+        reply_markup: reply_markup,
       });
     } else {
       await bot.sendPhoto(getUser.rows[i].chat_id, `${images[0]}`);
       bot.sendVideo(getUser.rows[i].chat_id, `${videos[0]}`, {
         caption: `${text}`,
         parse_mode: "HTML",
+        reply_markup: reply_markup,
       });
     }
   }
