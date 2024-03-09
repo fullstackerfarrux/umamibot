@@ -200,8 +200,8 @@ bot.on("message", async (msg) => {
         }
         let getCount = await client.query("SELECT MAX(count) FROM orders");
 
-        let startSum = 10000;
-        let kmSum = 2000;
+        let startSum = 25000;
+        let kmSum = 0;
 
         // Convert from degrees to radians
         function degreesToRadians(degrees) {
@@ -232,8 +232,8 @@ bot.on("message", async (msg) => {
         }
 
         let sCoords = {
-          latitude: 41.302626,
-          longitude: 69.279813,
+          latitude: 41.325794,
+          longitude: 69.282398,
         };
 
         let dCoords = {
