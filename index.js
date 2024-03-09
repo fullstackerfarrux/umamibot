@@ -167,7 +167,7 @@ bot.on("message", async (msg) => {
             [data.promocode]
           );
           const order = await client.query(
-            "SELECT * FROM orders WHERE user_id = $1",
+            "SELECT * FROM orders WHERE user_id = $1 order by created_at desc",
             [msg.from.id]
           );
 
@@ -245,7 +245,7 @@ bot.on("message", async (msg) => {
         let resDeliveryPrice = dist * kmSum + startSum;
 
         const order = await client.query(
-          "SELECT * FROM orders WHERE user_id = $1",
+          "SELECT * FROM orders WHERE user_id = $1 order by created_at desc",
           [msg.from.id]
         );
 
@@ -307,7 +307,7 @@ bot.on("message", async (msg) => {
 
         if (data.payment == "Click") {
           const order = await client.query(
-            "SELECT * FROM orders WHERE user_id = $1",
+            "SELECT * FROM orders WHERE user_id = $1 order by created_at desc",
             [msg.from.id]
           );
 
@@ -334,7 +334,7 @@ bot.on("message", async (msg) => {
           });
         } else if (data.payment == "Payme") {
           const order = await client.query(
-            "SELECT * FROM orders WHERE user_id = $1",
+            "SELECT * FROM orders WHERE user_id = $1 order by created_at desc",
             [msg.from.id]
           );
 
