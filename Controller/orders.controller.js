@@ -2,7 +2,7 @@ import client from "../db/config.js";
 
 export const getOrders = async (req, res) => {
   const allOrders = [];
-  const category = await client.query("select * from orders order by created_at desc");
+  const category = await client.query("select * from orders order by created_at");
 
   for (let i = 0; i < category.rows.length; i++) {
     let getUser = await client.query("SELECT * from users WHERE user_id = $1", [
