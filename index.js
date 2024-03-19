@@ -265,44 +265,45 @@ bot.on("message", async (msg) => {
         const chat_id = process.env.CHAT_ID;
         const message = `<b>Поступил заказ с Telegram бота:</b> ${
           getCount.rows[0].max
-        } %0A
-  <b>Имя клиента:</b> ${msg.from.first_name} %0A
-  <b>Номер:</b> ${user.rows[0].phone_number} ${
-          msg.from.username !== undefined ? `| @${msg.from.username}` : ""
-        }%0A
-  <b>Адрес:</b> ${user.rows[0].reverse_location} (Локация после сообщения) %0A
-          %0A
-  <b>Дистанция:</b> ${dist}km%0A
-  <b>Оплате (${data.payment}) </b>%0A
-  <b>Тип выдачи:</b> ${data.delivery} %0A
-  <b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> %0A
-  <b>Промокод: ${
-    data.promocode !== ""
-      ? `${data.promocode} - ${percentagePromo}%`
-      : "Не использован"
-  }</b> %0A
-  %0A
-  <b>Сумма заказа:</b> ${
-    data.delivery == "Доставка"
-      ? `${(data?.total - resDeliveryPrice).toLocaleString()}`
-      : `${(data?.total + 0).toLocaleString()}`
-  } UZS %0A
-  <b>Доставка:</b> ${
-    data.delivery == "Доставка"
-      ? ` ${resDeliveryPrice?.toLocaleString()} (${dist} km)`
-      : "Самовызов"
-  }%0A
-  <b>Итого:</b> ${(data?.total + 0).toLocaleString()} UZS%0A
-  %0A
-  <b>Товары в корзине:</b> ${products.map((i, index) => {
-    let text = ` %0A ${index + 1}. ${i.product_name} ${
-      i.filling !== "" ? `(${i.filling})` : ``
-    } %0A 
-    ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
-      i.price.replace(/\D/g, "") * i.count
+        } 
+<b>Имя клиента:</b> ${msg.from.first_name} 
+<b>Номер:</b> ${user.rows[0].phone_number} ${
+        msg.from.username !== undefined ? `| @${msg.from.username}` : ""
+      }
+<b>Адрес:</b> ${user.rows[0].reverse_location} (Локация после сообщения) 
+        
+<b>Дистанция:</b> ${dist}km
+<b>Оплате (${data.payment}) </b>
+<b>Тип выдачи:</b> ${data.delivery} 
+<b>Комментарий: ${data.comment !== "" ? `${data.comment}` : "Нет"}</b> 
+<b>Промокод: ${
+  data.promocode !== ""
+    ? `${data.promocode} - ${percentagePromo}%`
+    : "Не использован"
+}</b> 
+
+<b>Сумма заказа:</b> ${
+  data.delivery == "Доставка"
+    ? `${(data?.total - resDeliveryPrice).toLocaleString()}`
+    : `${(data?.total + 0).toLocaleString()}`
+} UZS 
+<b>Доставка:</b> ${
+  data.delivery == "Доставка"
+    ? ` ${resDeliveryPrice?.toLocaleString()} (${dist} km)`
+    : "Самовызов"
+}
+<b>Итого:</b> ${(data?.total + 0).toLocaleString()} UZS
+
+<b>Товары в корзине:</b> ${products.map((i, index) => {
+  let text = `
+  ${index + 1}. ${i.product_name} ${
+    i.filling !== "" ? `(${i.filling})` : ``
+  }  
+  ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
+    i.price.replace(/\D/g, "") * i.count
     }`;
     return text;
-  })} %0A
+  })} 
         `;
 
         if (data.payment == "Click") {
@@ -382,7 +383,7 @@ bot.on("message", async (msg) => {
           //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
           // );
           await bot.sendMessage(
-            msg.chat.id,
+            chat_id,
             message,
             {
               parse_mode: "HTML"
