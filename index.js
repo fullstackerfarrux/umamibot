@@ -299,7 +299,7 @@ bot.on("message", async (msg) => {
   ${index + 1}. ${i.product_name} ${
     i.filling !== "" ? `(${i.filling})` : ``
   }  
-  ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
+     ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
     i.price.replace(/\D/g, "") * i.count
     }`;
     return text;
