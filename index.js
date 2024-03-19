@@ -385,7 +385,7 @@ bot.on("message", async (msg) => {
             msg.chat.id,
             message,
             {
-              parse_mode: html
+              parse_mode: "HTML"
             }
           )
 
