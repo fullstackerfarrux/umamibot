@@ -38,6 +38,49 @@ bot.onText(/start/, async (msg) => {
   );
 });
 
+bot.onText(/turnonbot0033/, async(msg) => {
+  const find = await client.query(
+    "select * from condition"
+  );
+  if (find.rowCount == 0) {
+    const create = await client.query(
+      "INSERT INTO condition(is_active) values($1)",
+      [true]
+    );
+  } else {
+    const id  = find.rows[0].id
+    await client.query(
+      "UPDATE condition SET is_active = $1 WHERE id = $2",
+      [true, id]
+    );
+  }
+
+  bot.sendMessage(msg.chat.id, `Бот успешно включен`);
+});
+
+
+bot.onText(/turnoffbot0033/, async(msg) => {
+  const find = await client.query(
+    "select * from condition"
+  );
+  if (find.rowCount == 0) {
+    const create = await client.query(
+      "INSERT INTO condition(is_active) values($1)",
+      [false]
+    );
+  } else {
+    const id  = find.rows[0].id
+    await client.query(
+      "UPDATE condition SET is_active = $1 WHERE id = $2",
+      [false, id]
+    );
+  }
+
+  bot.sendMessage(msg.chat.id, `Бот успешно отключен`);
+
+});
+
+
 bot.on("contact", async (msg) => {
   const find = await client.query(
     "select * from users where phone_number = $1",
@@ -123,6 +166,18 @@ bot.on("message", async (msg) => {
     try {
       const data = JSON.parse(msg.web_app_data.data);
       if (msg.web_app_data.data.length >= 0) {
+
+        // check bot condition
+        const condition = await client.query(
+          "select * from condition"
+        );
+        if (condition.rowCount > 0) {
+          if (condition.rows[0].is_active == false) {
+            bot.sendMessage(msg.chat.id, "Мы приносим свои извинения, но в настоящее время мы не можем обрабатывать заказы в данный момент.  Мы будем рады снова обслужить вас завтра.")
+            return
+          }
+        }
+
         let user = await client.query(
           "SELECT * FROM users where user_id = $1",
           [msg.from.id]

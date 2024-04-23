@@ -72,5 +72,10 @@ create table settings(
     delivery_price INT
 );
 
+drop table if exists condition;
+create table condition(
+    id VARCHAR DEFAULT gen_random_uuid(),
+    is_active BOOLEAN
+);
 
 ALTER TABLE promocode RENAME COLUMN users_id TO orders_id;
