@@ -105,7 +105,7 @@ export const clickComplete = async (req, res) => {
     getOrder.rows[0].user_id,
   ]);
   let getCount = await client.query("SELECT MAX(count) FROM orders");
-  let startSum = 25000;
+  let startSum = 30000;
   let kmSum = 0;
 
   // Convert from degrees to radians
