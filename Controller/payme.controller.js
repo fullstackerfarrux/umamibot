@@ -77,8 +77,8 @@ export const accept_order = async (req, res) => {
     }
   
     let sCoords = {
-      latitude: 41.325794,
-      longitude: 69.282398,
+      latitude: 41.308240,
+      longitude: 69.268835,
     };
   
     let dCoords = {
