@@ -159,46 +159,47 @@ export const clickComplete = async (req, res) => {
 
   const message = `<b>Поступил заказ с Telegram бота:</b> ${
     getCount.rows[0].max
-  } %0A
-  <b>Имя клиента:</b> ${user.rows[0].firstname} %0A
-  <b>Номер:</b> ${user.rows[0].phone_number} ${
-    user.rows[0].username !== undefined ? `| @${user.rows[0].username}` : ""
-  }%0A
-  <b>Адрес:</b> ${user.rows[0].reverse_location} (Локация после сообщения) %0A
-          %0A
-  <b>Дистанция:</b> ${dist}km%0A
-  <b>Оплате (${getOrder.rows[0].payment_type}) </b>%0A
-  <b>Тип выдачи:</b> ${getOrder.rows[0].exportation} %0A
-  <b>Комментарий: ${
-    getOrder.rows[0].comment !== "" ? `${getOrder.rows[0].comment}` : "Нет"
-  }</b> %0A
-   <b>Промкод: ${
-     resPromoTitle !== ""
-       ? `${resPromoTitle} - ${resPromoSale}`
-       : "Не использован"
-   }</b> %0A
-  %0A
-  <b>Сумма заказа:</b> ${
-    getOrder.rows[0].exportation == "Доставка"
-      ? `${(+getOrder.rows[0].total - resDeliveryPrice).toLocaleString()}`
-      : `${(+getOrder.rows[0].total + 0).toLocaleString()}`
-  } UZS %0A
-  <b>Доставка:</b> ${
-    getOrder.rows[0].exportation == "Доставка"
-      ? ` ${resDeliveryPrice?.toLocaleString()} (${dist} km)`
-      : "Самовызов"
-  }%0A
-  <b>Итого:</b> ${(+getOrder.rows[0].total + 0).toLocaleString()} UZS%0A
-  %0A
-  <b>Товары в корзине:</b> ${products.map((i, index) => {
-    let text = ` %0A ${index + 1}. ${i.product_name} ${
-      i.filling !== "" ? `(${i.filling})` : ``
-    } %0A 
-    ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
-      i.price.replace(/\D/g, "") * i.count
-    }`;
+  } 
+<b>Имя клиента:</b> ${user.rows[0].firstname} 
+<b>Номер:</b> ${user.rows[0].phone_number} ${
+  user.rows[0].username !== undefined ? `| @${user.rows[0].username}` : ""
+}
+<b>Адрес:</b> ${user.rows[0].reverse_location} (Локация после сообщения) 
+        
+<b>Дистанция:</b> ${dist}km
+<b>Оплате (${getOrder.rows[0].payment_type}) </b>
+<b>Тип выдачи:</b> ${getOrder.rows[0].exportation} 
+<b>Комментарий: ${
+  getOrder.rows[0].comment !== "" ? `${getOrder.rows[0].comment}` : "Нет"
+}</b> 
+ <b>Промкод: ${
+   resPromoTitle !== ""
+     ? `${resPromoTitle} - ${resPromoSale}`
+     : "Не использован"
+ }</b> 
+
+<b>Сумма заказа:</b> ${
+  getOrder.rows[0].exportation == "Доставка"
+    ? `${(+getOrder.rows[0].total - resDeliveryPrice).toLocaleString()}`
+    : `${(+getOrder.rows[0].total + 0).toLocaleString()}`
+} UZS 
+<b>Доставка:</b> ${
+  getOrder.rows[0].exportation == "Доставка"
+    ? ` ${resDeliveryPrice?.toLocaleString()} (${dist} km)`
+    : "Самовызов"
+}
+<b>Итого:</b> ${(+getOrder.rows[0].total + 0).toLocaleString()} UZS
+
+<b>Товары в корзине:</b> ${products.map((i, index) => {
+  let text = `
+  ${index + 1}. ${i.product_name} ${
+    i.filling !== "" ? `(${i.filling})` : ``
+  }  
+     ${i.count} x ${i.price.replace(/\D/g, " ")} = ${
+    i.price.replace(/\D/g, "") * i.count
+  }`;
     return text;
-  })} %0A
+  })} 
         `;
 
   const updateOrder = await client.query(
@@ -206,10 +207,17 @@ export const clickComplete = async (req, res) => {
     [merchant_trans_id]
   );
 
-  await axios.post(
-    `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
-  );
-
+  // await axios.post(
+  //   `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&parse_mode=html&text=${message}`
+  // );
+  await bot.sendMessage(
+    chat_id,
+    message,
+    {
+      parse_mode: "HTML"
+    }
+  )
+  
   await axios.post(
     `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chat_id}&latitude=${user.rows[0].user_location[0]}&longitude=${user.rows[0].user_location[1]}`
   );
